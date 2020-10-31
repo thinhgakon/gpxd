@@ -30,3 +30,27 @@ code {
 .site-layout .site-layout-background {
   background: #fff;
 }
+
+/* SIGNIN */
+.site-layout-signin .login-form {
+  max-width: 350px;
+  margin: auto;
+}
+
+.site-layout-signin .login-form-forgot {
+  float: right;
+}
+
+.site-layout-signin .ant-col-rtl .login-form-forgot {
+  float: left;
+}
+
+.site-layout-signin .login-form-button {
+  width: 100%;
+}
+
+/* SIGNUP */
+.site-layout-signup .signup-form {
+  max-width: 800px;
+  margin: auto;
+}

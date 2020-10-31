@@ -19,6 +19,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 import HomePage from './pages/home/HomePage';
 import SignIn from './pages/auth/SignIn';
+import SignUp from './pages/auth/SignUp';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -51,7 +52,9 @@ function App() {
               <Menu.Item key="3">
                 <NavLink to="/signin" activeClassName="active">SignIn</NavLink>
               </Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
+              <Menu.Item key="4">
+                <NavLink to="/signup" activeClassName="active">SignUp</NavLink>
+              </Menu.Item>
               <Menu.Item key="5">Alex</Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
@@ -72,6 +75,9 @@ function App() {
               </Route>
               <Route path="/signin">
                 <SignIn />
+              </Route>
+              <Route path="/signup">
+                <SignUp />
               </Route>
               <Route path="/">
                 <HomePage />
