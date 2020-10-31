@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
   DesktopOutlined,
@@ -20,11 +22,16 @@ import './index.css';
 import HomePage from './pages/home/HomePage';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
+import ProjectList from './pages/project/ProjectList';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 function App() {
+  useFirestoreConnect(['projects'])
+  const projects = useSelector(state => state.firestore.ordered.projects);
+  console.log("projects:",projects);
+  
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
@@ -57,8 +64,10 @@ function App() {
               </Menu.Item>
               <Menu.Item key="5">Alex</Menu.Item>
             </SubMenu>
-            <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-              <Menu.Item key="6">Team 1</Menu.Item>
+            <SubMenu key="sub2" icon={<TeamOutlined />} title="Projects">
+              <Menu.Item key="6">
+                <NavLink to="/projects" activeClassName="active">List</NavLink>
+              </Menu.Item>
               <Menu.Item key="8">Team 2</Menu.Item>
             </SubMenu>
             <Menu.Item key="9" icon={<FileOutlined />}>
@@ -78,6 +87,9 @@ function App() {
               </Route>
               <Route path="/signup">
                 <SignUp />
+              </Route>
+              <Route path="/projects">
+                <ProjectList projects={projects} />
               </Route>
               <Route path="/">
                 <HomePage />
