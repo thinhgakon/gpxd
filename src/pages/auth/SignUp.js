@@ -49,15 +49,15 @@ const SignUp = () => {
   const [form] = Form.useForm();
 
   const auth = useSelector(state => state.firebase.auth);
-    if (auth.uid) return <Redirect to='/' />
+  if (auth.uid) return <Redirect to='/' />
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
-    const {email, password, firstName, lastName} = values;
+    const { email, password, firstName, lastName } = values;
     const newUser = {
       email, password, firstName, lastName
-  }
-  dispatch(signUp(newUser));    
+    }
+    dispatch(signUp(newUser));
   };
 
   return (
@@ -70,124 +70,124 @@ const SignUp = () => {
         <Breadcrumb.Item>SignUp</Breadcrumb.Item>
       </Breadcrumb>
       <div className="site-layout-background site-layout-signup" style={{ padding: 24, minHeight: 360 }}>
-      <Form
-      {...formItemLayout}
-      form={form}
-      name="register"
-      className="signup-form"
-      onFinish={onFinish}
-      scrollToFirstError
-    >
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+        <Form
+          {...formItemLayout}
+          form={form}
+          name="register"
+          className="signup-form"
+          onFinish={onFinish}
+          scrollToFirstError
+        >
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              {
+                type: 'email',
+                message: 'The input is not valid E-mail!',
+              },
+              {
+                required: true,
+                message: 'Please input your E-mail!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-        hasFeedback
-      >
-        <Input.Password />
-      </Form.Item>
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password />
+          </Form.Item>
 
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
+          <Form.Item
+            name="confirm"
+            label="Confirm Password"
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
 
-              return Promise.reject('The two passwords that you entered do not match!');
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
+                  return Promise.reject('The two passwords that you entered do not match!');
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
 
-      <Form.Item
-        name="firstName"
-        label={
-          <span>
-            First Name&nbsp;
+          <Form.Item
+            name="firstName"
+            label={
+              <span>
+                First Name&nbsp;
             <Tooltip title="What do you want others to call you?">
-              <QuestionCircleOutlined />
-            </Tooltip>
-          </span>
-        }
-        rules={[
-          {
-            required: true,
-            message: 'Please input your first name!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+                  <QuestionCircleOutlined />
+                </Tooltip>
+              </span>
+            }
+            rules={[
+              {
+                required: true,
+                message: 'Please input your first name!',
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-      <Form.Item
-        name="lastName"
-        label="Last Name"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your last name!',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+          <Form.Item
+            name="lastName"
+            label="Last Name"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your last name!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject('Should accept agreement'),
-          },
-        ]}
-        {...tailFormItemLayout}
-      >
-        <Checkbox>
-          I have read the <a href="">agreement</a>
-        </Checkbox>
-      </Form.Item>
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Register
+          <Form.Item
+            name="agreement"
+            valuePropName="checked"
+            rules={[
+              {
+                validator: (_, value) =>
+                  value ? Promise.resolve() : Promise.reject('Should accept agreement'),
+              },
+            ]}
+            {...tailFormItemLayout}
+          >
+            <Checkbox>
+              I have read the <a href="">agreement</a>
+            </Checkbox>
+          </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit">
+              Register
         </Button>
-      </Form.Item>
-    </Form>
+          </Form.Item>
+        </Form>
       </div>
     </>
   );
