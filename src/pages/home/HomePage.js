@@ -1,8 +1,12 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Breadcrumb } from 'antd';
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const HomePage = () => {
+    const auth = useSelector(state => state.firebase.auth);
+    if (!auth.uid) return <Redirect to='/signin' />
     return (
         <>
             <Helmet>
@@ -12,7 +16,7 @@ const HomePage = () => {
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                Bill is a cat.
+                Hello World...
             </div>
         </>
     );

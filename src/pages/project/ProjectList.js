@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Form, Input, Button, Checkbox, Table, Tag, Space } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Redirect } from "react-router-dom";
 
 import { Helmet } from 'react-helmet';
 import ProjectSummary from './ProjectSummary';
+import { useSelector } from 'react-redux';
 
 const columns = [
     {
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
-        render: text => <a>{text}</a>,
+        render: (text, record) => (
+            <Link to={'/project/' + record.id} key={record.id} >{text}</Link>
+        ),
     },
     {
         title: 'Content',
@@ -43,13 +46,16 @@ const ProjectList = (props) => {
     const { projects } = props;
     const [loading, setLoading] = useState(true);
 
-    let newProjects = [];
-
     useEffect(() => {
         if (projects != undefined) {
             setLoading(false);
         }
     }, [projects]);
+
+    const auth = useSelector(state => state.firebase.auth);
+    if (!auth.uid) return <Redirect to='/signin' />
+
+    let newProjects = [];
 
     if (projects != undefined) {
         newProjects = projects.map(v => ({ ...v, key: v.id }));

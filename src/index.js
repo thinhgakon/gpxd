@@ -10,9 +10,10 @@ import reportWebVitals from './reportWebVitals';
 import { getFirebase, ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createFirestoreInstance } from "redux-firestore";
-import rootReducer from './store/reducers/rootReducer'
-import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
+import rootReducer from './store/reducers/rootReducer';
+import AuthIsLoaded from './pages/auth/AuthIsLoaded';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import "./config/fbConfig";
 
 const store = createStore(rootReducer,
@@ -36,7 +37,9 @@ const rrfProps = {
 ReactDOM.render(
   <Provider store={store} >
     <ReactReduxFirebaseProvider {...rrfProps}>
+      <AuthIsLoaded>
         <App />
+      </AuthIsLoaded>
     </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById('root')

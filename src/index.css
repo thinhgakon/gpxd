@@ -12,6 +12,28 @@ code {
     monospace;
 }
 
+#root {
+  height: 100%;
+}
+
+.topbar {
+  padding: 0 16px;
+  display: flex;
+  justify-content: right;
+}
+
+.topbar__account {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  margin-left: auto;
+}
+
+.topbar__account li {
+  list-style: none;
+  padding-right: 7px;
+}
+
 .ant-layout-sider-dark .logo {
   height: 32px;
   margin: 16px;
@@ -47,6 +69,10 @@ code {
 
 .site-layout-signin .login-form-button {
   width: 100%;
+}
+
+.red-text {
+  color: red;
 }
 
 /* SIGNUP */

@@ -2,10 +2,12 @@ import React from 'react';
 import { Breadcrumb, Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {
-  NavLink
+  NavLink, Redirect
 } from "react-router-dom";
 
 import { Helmet } from 'react-helmet';
+import { useDispatch, useSelector } from "react-redux";
+import { signIn } from "./../../store/actions/authActions";
 
 const layout = {
   labelCol: {
@@ -23,8 +25,15 @@ const tailLayout = {
 };
 
 const SignIn = () => {
+  const authError = useSelector((state) => state.auth.authError);
+  const dispatch = useDispatch();
+
+  const auth = useSelector(state => state.firebase.auth);
+  if (auth.uid) return <Redirect to='/' />
+
   const onFinish = (values) => {
     console.log('Success:', values);
+    dispatch(signIn({ email: values.username, password: values.password }));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -92,6 +101,10 @@ const SignIn = () => {
             <Button type="primary" htmlType="submit" className="login-form-button">
               Log in
         </Button>
+        <div className="red-text center">
+            {authError ? <p>{authError}</p> : null}
+        </div>
+
         Or <NavLink to="/signup" activeClassName="active">register now!</NavLink>
           </Form.Item>
         </Form>

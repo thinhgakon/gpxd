@@ -9,6 +9,8 @@ import {
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const formItemLayout = {
   labelCol: {
@@ -43,6 +45,9 @@ const tailFormItemLayout = {
 
 const SignUp = () => {
   const [form] = Form.useForm();
+
+  const auth = useSelector(state => state.firebase.auth);
+    if (auth.uid) return <Redirect to='/' />
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);

@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFirestoreConnect } from 'react-redux-firebase';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -14,7 +14,6 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Link,
   NavLink
 } from "react-router-dom";
 import 'antd/dist/antd.css';
@@ -23,6 +22,9 @@ import HomePage from './pages/home/HomePage';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import ProjectList from './pages/project/ProjectList';
+import CreateProject from './pages/project/CreateProject';
+import ProjectDetails from './pages/project/ProjectDetails';
+import Navbar from './components/Navbar';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -30,11 +32,12 @@ const { SubMenu } = Menu;
 function App() {
   useFirestoreConnect(['projects'])
   const projects = useSelector(state => state.firestore.ordered.projects);
-  
+
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
   };
+  const dispatch = useDispatch();
   return (
     <BrowserRouter>
       <Layout style={{ minHeight: '100vh' }}>
@@ -61,13 +64,15 @@ function App() {
               <Menu.Item key="4">
                 <NavLink to="/signup" activeClassName="active">SignUp</NavLink>
               </Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
+              <Menu.Item key="5">List</Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Projects">
               <Menu.Item key="6">
-                <NavLink to="/projects" activeClassName="active">List</NavLink>
+                <NavLink to="/project" activeClassName="active">List</NavLink>
               </Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
+              <Menu.Item key="8">
+                <NavLink to="/project/add" activeClassName="active">Add new</NavLink>
+              </Menu.Item>
             </SubMenu>
             <Menu.Item key="9" icon={<FileOutlined />}>
               Files
@@ -75,7 +80,11 @@ function App() {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
+          <Header className="site-layout-background" style={{ padding: 0 }} >
+            <div className="topbar">
+              <Navbar />
+            </div>
+          </Header>
           <Content style={{ margin: '0 16px' }}>
             <Switch>
               <Route path="/home">
@@ -87,9 +96,11 @@ function App() {
               <Route path="/signup">
                 <SignUp />
               </Route>
-              <Route path="/projects">
+              <Route exact path="/project">
                 <ProjectList projects={projects} />
               </Route>
+              <Route path="/project/add" component={CreateProject} />
+              <Route path='/project/:id' component={ProjectDetails} />
               <Route path="/">
                 <HomePage />
               </Route>
