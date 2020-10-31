@@ -30,7 +30,6 @@ const { SubMenu } = Menu;
 function App() {
   useFirestoreConnect(['projects'])
   const projects = useSelector(state => state.firestore.ordered.projects);
-  console.log("projects:",projects);
   
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = collapsed => {
