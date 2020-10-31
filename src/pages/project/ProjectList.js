@@ -31,6 +31,15 @@ const columns = [
         ),
     },
     {
+        title: 'Created At',
+        key: 'CreatedAt',
+        render: (text, record) => (
+            <>
+                {record.createdAt.toDate().toDateString()} {record.createdAt.toDate().toLocaleTimeString('en-US')} 
+            </>
+        ),
+    },
+    {
         title: 'Action',
         key: 'action',
         render: (text, record) => (
