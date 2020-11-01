@@ -108,7 +108,7 @@ function App() {
               </Route>
             </Switch>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>©2020 Created by Thinh Nguyen Xuan</Footer>
+          <Footer style={{ textAlign: 'center' }}>©2020 Xây dựng bởi Thinh Nguyen Xuan</Footer>
         </Layout>
       </Layout>
     </BrowserRouter>

@@ -9,20 +9,20 @@ import { useSelector } from 'react-redux';
 
 const columns = [
     {
-        title: 'Title',
-        dataIndex: 'title',
-        key: 'title',
+        title: 'Chủ hộ',
+        dataIndex: 'owner',
+        key: 'owner',
         render: (text, record) => (
             <Link to={'/project/' + record.id} key={record.id} >{text}</Link>
         ),
     },
     {
-        title: 'Content',
-        dataIndex: 'content',
-        key: 'content',
+        title: 'Địa chỉ',
+        dataIndex: 'address',
+        key: 'address',
     },
     {
-        title: 'Full Name',
+        title: 'Người tạo',
         key: 'fullname',
         render: (text, record) => (
             <>
@@ -31,7 +31,7 @@ const columns = [
         ),
     },
     {
-        title: 'Created At',
+        title: 'Ngày tạo',
         key: 'CreatedAt',
         render: (text, record) => (
             <>
@@ -40,7 +40,7 @@ const columns = [
         ),
     },
     {
-        title: 'Action',
+        title: 'Thao tác',
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
@@ -73,14 +73,24 @@ const ProjectList = (props) => {
     return (
         <>
             <Helmet>
-                <title>AntDesign | Products</title>
+                <title>GPXD | Danh sách sai phạm</title>
             </Helmet>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>Products</Breadcrumb.Item>
+                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+                <Breadcrumb.Item>Sai phạm</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background site-layout-signin" style={{ padding: 24, minHeight: 360 }}>
-                <Table loading={loading} columns={columns} dataSource={newProjects} />
+                <Table
+                    loading={loading}
+                    columns={columns}
+                    expandable={{
+                        expandedRowRender: record =>
+                            <>
+                                <p><b>Địa chỉ:</b> {record.address}</p>
+                                <p><b>Nội dung phát hiện:</b> {record.content}</p>
+                            </>,
+                    }}
+                    dataSource={newProjects} />
             </div>
         </>
     )

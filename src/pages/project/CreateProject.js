@@ -6,15 +6,16 @@ import {
     Button,
     Breadcrumb,
     Row,
-    Col
+    Col,
+    Select
 } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { createProject } from '../../store/actions/projectActions'
-import TextArea from 'antd/lib/input/TextArea';
+const { TextArea } = Input;
+const { Option } = Select;
 
 const formItemLayout = {
     labelCol: {
@@ -192,7 +193,7 @@ const CreateProject = (props) => {
                                         width: 'calc(50% - 60px)',
                                     }}
                                 >
-                                    <Input />
+                                    <Input placeholder="đơn vị m2" />
                                 </Form.Item>
                                 <span
                                     style={{
@@ -211,7 +212,7 @@ const CreateProject = (props) => {
                                         width: 'calc(50% - 60px)',
                                     }}
                                 >
-                                    <Input />
+                                    <Input placeholder="đơn vị m2" />
                                 </Form.Item>
                             </Form.Item>
 
@@ -301,7 +302,7 @@ const CreateProject = (props) => {
                                 <Input />
                             </Form.Item> */}
 
-                            <Form.Item name="tranhchap" label="Có tranh chấp với ai không">
+                            <Form.Item name="tranhchap" label="Có tranh chấp không?">
                                 <Switch />
                             </Form.Item>
 
@@ -326,12 +327,23 @@ const CreateProject = (props) => {
                                 <TextArea />
                             </Form.Item>
 
-                            <Form.Item
+                            {/* <Form.Item
                                 name="coquankiemtra"
                                 label="Cơ quan kiểm tra"
                             >
                                 <Input />
+                            </Form.Item> */}
+                            <Form.Item
+                                name="coquankiemtra"
+                                label="Cơ quan kiểm tra"
+                            >
+                                <Select defaultValue="Phường" style={{ width: 120 }} >
+                                    <Option value="Phường">Phường</Option>
+                                    <Option value="TP">Thành phố</Option>
+                                </Select>
                             </Form.Item>
+
+
                         </Col>
                     </Row>
                     <Row>
