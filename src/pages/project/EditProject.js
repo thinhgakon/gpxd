@@ -68,7 +68,7 @@ const EditProject = (props) => {
                 </Helmet>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>Add new project</Breadcrumb.Item>
+                    <Breadcrumb.Item>Edit project</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="site-layout-background site-layout-signup" style={{ padding: 24, minHeight: 360 }}>
                     <Form
