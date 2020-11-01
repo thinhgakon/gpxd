@@ -58,21 +58,21 @@ function App() {
                 SignIn
               </NavLink>
             </Menu.Item>
-            <SubMenu key="sub1" icon={<UserOutlined />} title="User">
+            <SubMenu key="sub1" icon={<UserOutlined />} title="Tài khoản">
               <Menu.Item key="3">
-                <NavLink to="/signin" activeClassName="active">SignIn</NavLink>
+                <NavLink to="/signin" activeClassName="active">Đăng nhập</NavLink>
               </Menu.Item>
               <Menu.Item key="4">
-                <NavLink to="/signup" activeClassName="active">SignUp</NavLink>
+                <NavLink to="/signup" activeClassName="active">Đăng ký</NavLink>
               </Menu.Item>
-              <Menu.Item key="5">List</Menu.Item>
+              <Menu.Item key="5">Danh sách</Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Projects">
               <Menu.Item key="6">
-                <NavLink to="/project" activeClassName="active">List</NavLink>
+                <NavLink to="/project" activeClassName="active">Danh sách</NavLink>
               </Menu.Item>
               <Menu.Item key="8">
-                <NavLink to="/project/add" activeClassName="active">Add new</NavLink>
+                <NavLink to="/project/add" activeClassName="active">Thêm mới</NavLink>
               </Menu.Item>
             </SubMenu>
             <Menu.Item key="9" icon={<FileOutlined />}>

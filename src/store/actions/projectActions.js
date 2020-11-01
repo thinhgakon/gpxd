@@ -1,4 +1,5 @@
 export const createProject = (project) => {
+    console.log("project:", project);
     return (dispatch, getState, getFirebase) => {
         // make async call to database
         const profile = getState().firebase.profile;
