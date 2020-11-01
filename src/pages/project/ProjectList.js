@@ -35,7 +35,7 @@ const columns = [
         key: 'CreatedAt',
         render: (text, record) => (
             <>
-                {record.createdAt.toDate().toDateString()} {record.createdAt.toDate().toLocaleTimeString('en-US')} 
+                {record.createdAt.toDate().toDateString()} {record.createdAt.toDate().toLocaleTimeString('en-US')}
             </>
         ),
     },
@@ -44,7 +44,7 @@ const columns = [
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
-                <a>Invite {record.name}</a>
+                <Link to={'/project/edit/' + record.id} key={record.id} >Edit</Link>
                 <a>Delete </a>
             </Space>
         ),

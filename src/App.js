@@ -25,6 +25,7 @@ import ProjectList from './pages/project/ProjectList';
 import CreateProject from './pages/project/CreateProject';
 import ProjectDetails from './pages/project/ProjectDetails';
 import Navbar from './components/Navbar';
+import EditProject from './pages/project/EditProject';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -100,6 +101,7 @@ function App() {
                 <ProjectList projects={projects} />
               </Route>
               <Route path="/project/add" component={CreateProject} />
+              <Route path="/project/edit/:id" component={EditProject} />
               <Route path='/project/:id' component={ProjectDetails} />
               <Route path="/">
                 <HomePage />
