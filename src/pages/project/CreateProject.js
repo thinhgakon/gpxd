@@ -7,9 +7,10 @@ import {
     Breadcrumb,
     Row,
     Col,
-    Select
+    Select,
+    message,
 } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -53,13 +54,30 @@ const CreateProject = (props) => {
     const [form] = Form.useForm();
 
     const [tranhchap, setTranhchap] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [clickSave, setClickSave] = useState(false);
+    const loadingStatus = useSelector((state) => state.project.loading);
+
+    useEffect(() => {
+        setLoading(loadingStatus);
+    }, [loadingStatus]);
+
+    useEffect(() => {
+        if (clickSave) {
+            message.success('Thêm mới dữ liệu thành công!');
+            setTimeout(() => {
+                props.history.push('/project');
+            }, 500);
+        }
+    }, [loading]);
 
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />
 
     const onFinish = (values) => {
+        setLoading(true);
+        setClickSave(true);
         dispatch(createProject(values));
-        props.history.push('/project');
     };
 
     const onToggleTranhChap = () => {
@@ -85,16 +103,16 @@ const CreateProject = (props) => {
                     scrollToFirstError
                     initialValues={{
                         owner: "",
-                        address: "", 
+                        address: "",
                         permitNumber: "",
                         permitDate: "",
-                        permitAcreage: "", 
+                        permitAcreage: "",
                         realAcreage: "",
-                        bandoso: "", 
+                        bandoso: "",
                         thuadatso: "",
                         qhduong: "",
                         qhmuong: "",
-                        qhdien: "", 
+                        qhdien: "",
                         content: "",
                         tranhchap: false,
                         bienbanso: "",
@@ -319,7 +337,7 @@ const CreateProject = (props) => {
                             </Form.Item> */}
 
                             <Form.Item name="tranhchap" label="Có tranh chấp không">
-                                <Switch checked={tranhchap}  onChange={onToggleTranhChap} />
+                                <Switch checked={tranhchap} onChange={onToggleTranhChap} />
                             </Form.Item>
 
                             <Form.Item
@@ -365,7 +383,7 @@ const CreateProject = (props) => {
                     <Row>
                         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                             <Form.Item {...tailFormItemLayout}>
-                                <Button type="primary" htmlType="submit">
+                                <Button loading={loading} type="primary" htmlType="submit">
                                     Thêm mới dữ liệu
                                 </Button>
                             </Form.Item>

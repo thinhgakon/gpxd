@@ -7,7 +7,9 @@ import {
     Breadcrumb,
     Row,
     Col,
-    Select
+    Select,
+    Spin,
+    message
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
@@ -52,13 +54,31 @@ const tailFormItemLayout = {
 
 const EditProject = (props) => {
     const dispatch = useDispatch();
-    const [tranhchap, setTranhchap] = useState(false);
-    useFirestoreConnect(['projects']);
-    const projects = useSelector(state => state.firestore.ordered.projects);
-
-    const [form] = Form.useForm();
     const projectId = useParams().id;
-    const editedProject = projects ? projects.find((x) => x.id == projectId) : null;
+    const [tranhchap, setTranhchap] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [clickSave, setClickSave] = useState(false);
+    const editedProject = useSelector((state) => state.project.current);
+    const loadingStatus = useSelector((state) => state.project.loading);
+    const [form] = Form.useForm();
+
+    // load project
+    useEffect(() => {
+        dispatch(getAProject(projectId));
+    }, []);
+
+    useEffect(() => {
+        setLoading(loadingStatus);
+    }, [loadingStatus]);
+
+    useEffect(() => {
+        if (clickSave) {
+            message.success('Cập nhật dữ liệu thành công!');
+            setTimeout(() => {
+                props.history.push('/project');
+            }, 500);
+        }
+    }, [loading]);
 
     useEffect(() => {
         if (editedProject != null) {
@@ -66,14 +86,14 @@ const EditProject = (props) => {
         }
     }, [editedProject]);
 
+    // check auth
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />
 
-    dispatch(getAProject(projectId));
-
     const onFinish = (values) => {
+        setLoading(true);
+        setClickSave(true);
         dispatch(updateProject({ ...values, id: projectId }));
-        props.history.push('/project');
     };
 
     const onToggleTranhChap = () => {
@@ -100,16 +120,16 @@ const EditProject = (props) => {
                         scrollToFirstError
                         initialValues={{
                             owner: editedProject.owner,
-                            address: editedProject.address, 
+                            address: editedProject.address,
                             permitNumber: editedProject.permitNumber,
                             permitDate: editedProject.permitDate,
-                            permitAcreage: editedProject.permitAcreage, 
+                            permitAcreage: editedProject.permitAcreage,
                             realAcreage: editedProject.realAcreage,
-                            bandoso: editedProject.bandoso, 
+                            bandoso: editedProject.bandoso,
                             thuadatso: editedProject.thuadatso,
                             qhduong: editedProject.qhduong,
                             qhmuong: editedProject.qhmuong,
-                            qhdien: editedProject.qhdien, 
+                            qhdien: editedProject.qhdien,
                             content: editedProject.content,
                             tranhchap: editedProject.tranhchap,
                             bienbanso: editedProject.bienbanso,
@@ -334,7 +354,7 @@ const EditProject = (props) => {
                             </Form.Item> */}
 
                                 <Form.Item name="tranhchap" label="Có tranh chấp không?">
-                                    <Switch checked={tranhchap}  onChange={onToggleTranhChap} />
+                                    <Switch checked={tranhchap} onChange={onToggleTranhChap} />
                                 </Form.Item>
 
                                 <Form.Item
@@ -380,7 +400,7 @@ const EditProject = (props) => {
                         <Row>
                             <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                                 <Form.Item {...tailFormItemLayout}>
-                                    <Button type="primary" htmlType="submit">
+                                    <Button loading={loading} type="primary" htmlType="submit">
                                         Cập nhật dữ liệu
                                 </Button>
                                 </Form.Item>
@@ -392,8 +412,8 @@ const EditProject = (props) => {
         );
     } else {
         return (
-            <div className="container center">
-                <p>Loading Project...</p>
+            <div className="loading">
+                <Spin />
             </div>
         );
     }
