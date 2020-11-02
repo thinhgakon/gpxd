@@ -1,11 +1,13 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useFirestoreConnect } from 'react-redux-firebase';
 import { Divider, Breadcrumb } from 'antd';
 import { Helmet } from 'react-helmet';
 import { Link, NavLink, Redirect } from "react-router-dom";
+import { getAProject } from '../../store/actions/projectActions'
 
 const ProjectDetails = (props) => {
+    const dispatch = useDispatch();
     const id = props.match.params.id;
 
     useFirestoreConnect(['projects'])
@@ -18,6 +20,7 @@ const ProjectDetails = (props) => {
     const project = projects ? projects[projectIndex] : null;
 
     if (!project) return null;
+    dispatch(getAProject(id));
 
     return (
         <>

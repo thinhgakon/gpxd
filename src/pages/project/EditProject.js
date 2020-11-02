@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
 import { updateProject } from '../../store/actions/projectActions'
+import { getAProject } from '../../store/actions/projectActions'
 import { useFirestoreConnect } from 'react-redux-firebase';
 const { TextArea } = Input;
 const { Option } = Select;
@@ -67,6 +68,8 @@ const EditProject = (props) => {
 
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />
+
+    dispatch(getAProject(projectId));
 
     const onFinish = (values) => {
         dispatch(updateProject({ ...values, id: projectId }));

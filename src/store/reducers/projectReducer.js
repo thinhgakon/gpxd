@@ -28,6 +28,18 @@ const projectReducer = (state = initState, action) => {
             console.log('update project error');
             return state;
 
+        case 'LOAD_PROJECT_START':
+            console.log('load project start');
+            return state;
+
+        case 'LOAD_PROJECT_SUCCESS':
+            console.log('load project success');
+            return state;
+
+        case 'LOAD_PROJECT_ERROR':
+            console.log('load project error');
+            return state;
+
         default:
             return state;
     }

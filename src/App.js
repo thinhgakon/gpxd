@@ -26,6 +26,7 @@ import CreateProject from './pages/project/CreateProject';
 import ProjectDetails from './pages/project/ProjectDetails';
 import Navbar from './components/Navbar';
 import EditProject from './pages/project/EditProject';
+// import { loadProject } from './store/actions/projectActions';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -38,7 +39,8 @@ function App() {
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
   };
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  // dispatch(loadProject());
   return (
     <BrowserRouter>
       <Layout style={{ minHeight: '100vh' }}>
