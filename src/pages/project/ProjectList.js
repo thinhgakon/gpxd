@@ -73,7 +73,7 @@ const ProjectList = (props) => {
     return (
         <>
             <Helmet>
-                <title>GPXD | Danh sách sai phạm</title>
+                <title>GPXD | Danh sách</title>
             </Helmet>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>

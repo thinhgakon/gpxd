@@ -9,7 +9,7 @@ import {
     Col,
     Select
 } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
@@ -51,25 +51,37 @@ const tailFormItemLayout = {
 
 const EditProject = (props) => {
     const dispatch = useDispatch();
+    const [tranhchap, setTranhchap] = useState(false);
     useFirestoreConnect(['projects']);
     const projects = useSelector(state => state.firestore.ordered.projects);
+
     const [form] = Form.useForm();
     const projectId = useParams().id;
     const editedProject = projects ? projects.find((x) => x.id == projectId) : null;
+
+    useEffect(() => {
+        if (editedProject != null) {
+            setTranhchap(editedProject.tranhchap);
+        }
+    }, [editedProject]);
 
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />
 
     const onFinish = (values) => {
-        const { title, content } = values;
-        dispatch(updateProject({ id: projectId, title, content }));
-        props.history.push('/');
+        dispatch(updateProject({ ...values, id: projectId }));
+        props.history.push('/project');
     };
+
+    const onToggleTranhChap = () => {
+        setTranhchap(!tranhchap);
+    }
+
     if (editedProject) {
         return (
             <>
                 <Helmet>
-                    <title>GPXD | Cập nhật dữ liệu</title>
+                    <title>GPXD | Cập nhật</title>
                 </Helmet>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
@@ -84,11 +96,23 @@ const EditProject = (props) => {
                         onFinish={onFinish}
                         scrollToFirstError
                         initialValues={{
-                            address: editedProject.address, bandoso: editedProject.bandoso, content: editedProject.content,
-                            owner: editedProject.owner, permitAcreage: editedProject.permitAcreage, permitDate: editedProject.permitDate,
-                            permitNumber: editedProject.permitNumber, qhdien: editedProject.qhdien, qhduong: editedProject.qhduong,
-                            qhmuong: editedProject.qhmuong, realAcreage: editedProject.realAcreage, thuadatso: editedProject.thuadatso,
+                            owner: editedProject.owner,
+                            address: editedProject.address, 
+                            permitNumber: editedProject.permitNumber,
+                            permitDate: editedProject.permitDate,
+                            permitAcreage: editedProject.permitAcreage, 
+                            realAcreage: editedProject.realAcreage,
+                            bandoso: editedProject.bandoso, 
+                            thuadatso: editedProject.thuadatso,
+                            qhduong: editedProject.qhduong,
+                            qhmuong: editedProject.qhmuong,
+                            qhdien: editedProject.qhdien, 
+                            content: editedProject.content,
                             tranhchap: editedProject.tranhchap,
+                            bienbanso: editedProject.bienbanso,
+                            huongxuly: editedProject.huongxuly,
+                            ketquaxuly: editedProject.ketquaxuly,
+                            coquankiemtra: editedProject.coquankiemtra,
                         }}
                     >
 
@@ -307,7 +331,7 @@ const EditProject = (props) => {
                             </Form.Item> */}
 
                                 <Form.Item name="tranhchap" label="Có tranh chấp không?">
-                                    <Switch />
+                                    <Switch checked={tranhchap}  onChange={onToggleTranhChap} />
                                 </Form.Item>
 
                                 <Form.Item
@@ -341,7 +365,7 @@ const EditProject = (props) => {
                                     name="coquankiemtra"
                                     label="Cơ quan kiểm tra"
                                 >
-                                    <Select defaultValue="Phường" style={{ width: 120 }} >
+                                    <Select style={{ width: 120 }} >
                                         <Option value="Phường">Phường</Option>
                                         <Option value="TP">Thành phố</Option>
                                     </Select>

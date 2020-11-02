@@ -53,9 +53,9 @@ const SignUp = () => {
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
-    const { email, password, firstName, lastName } = values;
+    const { email, password, fullName } = values;
     const newUser = {
-      email, password, firstName, lastName
+      email, password, fullName
     }
     dispatch(signUp(newUser));
   };
@@ -84,11 +84,11 @@ const SignUp = () => {
             rules={[
               {
                 type: 'email',
-                message: 'The input is not valid E-mail!',
+                message: 'Định dạng E-mail không hợp lệ!',
               },
               {
                 required: true,
-                message: 'Please input your E-mail!',
+                message: 'Vui lòng nhập E-mail!',
               },
             ]}
           >
@@ -97,11 +97,11 @@ const SignUp = () => {
 
           <Form.Item
             name="password"
-            label="Password"
+            label="Mật khẩu"
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: 'Vui lòng nhập mật khẩu!',
               },
             ]}
             hasFeedback
@@ -111,13 +111,13 @@ const SignUp = () => {
 
           <Form.Item
             name="confirm"
-            label="Confirm Password"
+            label="Xác nhận mật khẩu"
             dependencies={['password']}
             hasFeedback
             rules={[
               {
                 required: true,
-                message: 'Please confirm your password!',
+                message: 'Vui lòng xác nhận mật khẩu!',
               },
               ({ getFieldValue }) => ({
                 validator(rule, value) {
@@ -125,7 +125,7 @@ const SignUp = () => {
                     return Promise.resolve();
                   }
 
-                  return Promise.reject('The two passwords that you entered do not match!');
+                  return Promise.reject('Xác nhận mật khẩu không trùng khớp!');
                 },
               }),
             ]}
@@ -134,10 +134,10 @@ const SignUp = () => {
           </Form.Item>
 
           <Form.Item
-            name="firstName"
+            name="fullName"
             label={
               <span>
-                First Name&nbsp;
+                Họ tên&nbsp;
             <Tooltip title="What do you want others to call you?">
                   <QuestionCircleOutlined />
                 </Tooltip>
@@ -146,21 +146,8 @@ const SignUp = () => {
             rules={[
               {
                 required: true,
-                message: 'Please input your first name!',
+                message: 'Vui lòng nhập họ tên!',
                 whitespace: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="lastName"
-            label="Last Name"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your last name!',
               },
             ]}
           >
@@ -179,12 +166,12 @@ const SignUp = () => {
             {...tailFormItemLayout}
           >
             <Checkbox>
-              I have read the <a href="">agreement</a>
+              Tôi đã đọc <a href="">điều khoản</a>
             </Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
-              Register
+              Đăng ký
         </Button>
           </Form.Item>
         </Form>

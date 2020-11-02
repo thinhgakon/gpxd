@@ -9,7 +9,7 @@ import {
     Col,
     Select
 } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -52,20 +52,24 @@ const CreateProject = (props) => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
 
+    const [tranhchap, setTranhchap] = useState(false);
+
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />
 
     const onFinish = (values) => {
-        console.log("values:", values);
-        // const { title, content } = values;
         dispatch(createProject(values));
-        props.history.push('/');
+        props.history.push('/project');
     };
+
+    const onToggleTranhChap = () => {
+        setTranhchap(!tranhchap);
+    }
 
     return (
         <>
             <Helmet>
-                <title>GPXD | Thêm mới dữ liệu</title>
+                <title>GPXD | Thêm mới</title>
             </Helmet>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
@@ -80,11 +84,23 @@ const CreateProject = (props) => {
                     onFinish={onFinish}
                     scrollToFirstError
                     initialValues={{
-                        address: "", bandoso: "", content: "",
-                        owner: "", permitAcreage: "", permitDate: "",
-                        permitNumber: "", qhdien: "", qhduong: "",
-                        qhmuong: "", realAcreage: "", thuadatso: "",
-                        tranhchap: false
+                        owner: "",
+                        address: "", 
+                        permitNumber: "",
+                        permitDate: "",
+                        permitAcreage: "", 
+                        realAcreage: "",
+                        bandoso: "", 
+                        thuadatso: "",
+                        qhduong: "",
+                        qhmuong: "",
+                        qhdien: "", 
+                        content: "",
+                        tranhchap: false,
+                        bienbanso: "",
+                        huongxuly: "",
+                        ketquaxuly: "",
+                        coquankiemtra: "Phường",
                     }}
                 >
 
@@ -302,8 +318,8 @@ const CreateProject = (props) => {
                                 <Input />
                             </Form.Item> */}
 
-                            <Form.Item name="tranhchap" label="Có tranh chấp không?">
-                                <Switch />
+                            <Form.Item name="tranhchap" label="Có tranh chấp không">
+                                <Switch checked={tranhchap}  onChange={onToggleTranhChap} />
                             </Form.Item>
 
                             <Form.Item
@@ -337,7 +353,7 @@ const CreateProject = (props) => {
                                 name="coquankiemtra"
                                 label="Cơ quan kiểm tra"
                             >
-                                <Select defaultValue="Phường" style={{ width: 120 }} >
+                                <Select style={{ width: 120 }} >
                                     <Option value="Phường">Phường</Option>
                                     <Option value="TP">Thành phố</Option>
                                 </Select>

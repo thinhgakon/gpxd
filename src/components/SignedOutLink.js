@@ -6,6 +6,7 @@ const SignedOutLinks = () => {
         <>
         <ul className="topbar__account">
             <li><NavLink to='/signup'>Signup</NavLink></li>
+            <li>or</li>
             <li><NavLink to='/signin'>Login</NavLink></li>
         </ul>
       </>

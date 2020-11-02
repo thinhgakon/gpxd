@@ -1,15 +1,16 @@
 export const createProject = (project) => {
     console.log("project:", project);
     return (dispatch, getState, getFirebase) => {
+        dispatch({ type: 'CREATE_PROJECT_START', project });
         // make async call to database
         const profile = getState().firebase.profile;
-        const authorId = getState().firebase.auth.uid;
+        const creatorId = getState().firebase.auth.uid;
         getFirebase().firestore().collection('projects').add({
             ...project,
-            authorFirstName: profile.firstName,
-            authorLastName: profile.lastName,
-            authorId: authorId,
-            createdAt: new Date()
+            creatorFullName: profile.fullName,
+            creatorId: creatorId,
+            createdAt: new Date(),
+            updatedAt: new Date()
         }).then(() => {
             dispatch({ type: 'CREATE_PROJECT_SUCCESS', project });
         }).catch(err => {
@@ -20,12 +21,12 @@ export const createProject = (project) => {
 
 export const updateProject = (project) => {
     return (dispatch, getState, getFirebase) => {
+        dispatch({ type: 'UPDATE_PROJECT_START', project });
         // make async call to database
         const profile = getState().firebase.profile;
         const authorId = getState().firebase.auth.uid;
         getFirebase().firestore().collection('projects').doc(project.id).update({
-            title: project.title,
-            content: project.content,
+            ...project,
             updatedAt: new Date()
         }).then(() => {
             dispatch({ type: 'UPDATE_PROJECT_SUCCESS', project });

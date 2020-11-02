@@ -46,8 +46,8 @@ const SignIn = () => {
         <title>AntDesign | SignIn</title>
       </Helmet>
       <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>SignIn</Breadcrumb.Item>
+        <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+        <Breadcrumb.Item>Đăng nhập</Breadcrumb.Item>
       </Breadcrumb>
       <div className="site-layout-background site-layout-signin" style={{ padding: 24, minHeight: 360 }}>
         <Form
@@ -60,31 +60,31 @@ const SignIn = () => {
           onFinish={onFinish}
         >
           <Form.Item
-            label="Username"
+            label="E-mail"
             name="username"
             rules={[
               {
                 required: true,
-                message: 'Please input your Username!',
+                message: 'Vui lòng nhập E-mail!',
               },
             ]}
           >
-            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="E-mail đăng nhập" />
           </Form.Item>
           <Form.Item
-            label="Password"
+            label="Mật khẩu"
             name="password"
             rules={[
               {
                 required: true,
-                message: 'Please input your Password!',
+                message: 'Vui lòng nhập mật khẩu!',
               },
             ]}
           >
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
-              placeholder="Password"
+              placeholder="Nhập mật khẩu"
             />
           </Form.Item>
           <Form.Item>
@@ -93,19 +93,19 @@ const SignIn = () => {
             </Form.Item>
 
             <a className="login-form-forgot" href="">
-              Forgot password
-        </a>
+              Quên mật khẩu
+            </a>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className="login-form-button">
-              Log in
+              Đăng nhập
         </Button>
         <div className="red-text center">
             {authError ? <p>{authError}</p> : null}
         </div>
 
-        Or <NavLink to="/signup" activeClassName="active">register now!</NavLink>
+        Or <NavLink to="/signup" activeClassName="active">đăng ký!</NavLink>
           </Form.Item>
         </Form>
       </div>
