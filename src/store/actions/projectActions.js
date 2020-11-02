@@ -24,9 +24,11 @@ export const updateProject = (project) => {
         dispatch({ type: 'UPDATE_PROJECT_START', project });
         // make async call to database
         const profile = getState().firebase.profile;
-        const authorId = getState().firebase.auth.uid;
+        const editorId = getState().firebase.auth.uid;
         getFirebase().firestore().collection('projects').doc(project.id).update({
             ...project,
+            editorFullName: profile.fullName,
+            editorId: editorId,
             updatedAt: new Date()
         }).then(() => {
             dispatch({ type: 'UPDATE_PROJECT_SUCCESS', project });
