@@ -54,6 +54,10 @@ const projectReducer = (state = initState, action) => {
             console.log('load project error');
             return { ...state, loading: false };
 
+        case 'RESET_PROJECT':
+            console.log('reset project');
+            return { ...state, current: null };
+
         default:
             return state;
     }

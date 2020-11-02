@@ -16,8 +16,7 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
 import { updateProject } from '../../store/actions/projectActions'
-import { getAProject } from '../../store/actions/projectActions'
-import { useFirestoreConnect } from 'react-redux-firebase';
+import { getAProject, resetProject } from '../../store/actions/projectActions';
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -65,6 +64,10 @@ const EditProject = (props) => {
     // load project
     useEffect(() => {
         dispatch(getAProject(projectId));
+
+        return function cleanup() {
+            dispatch(resetProject());
+        }
     }, []);
 
     useEffect(() => {

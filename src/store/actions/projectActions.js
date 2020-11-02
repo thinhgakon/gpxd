@@ -78,3 +78,9 @@ export const getAProject = (projectId) => {
         })
     }
 };
+
+export const resetProject = () => {
+    return {
+        type: 'RESET_PROJECT',
+    }
+}

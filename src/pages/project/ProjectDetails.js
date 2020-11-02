@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Divider, Breadcrumb } from 'antd';
 import { Helmet } from 'react-helmet';
 import { NavLink, Redirect } from "react-router-dom";
-import { getAProject } from '../../store/actions/projectActions'
+import { getAProject, resetProject } from '../../store/actions/projectActions'
 
 const ProjectDetails = (props) => {
     const dispatch = useDispatch();
@@ -12,6 +12,10 @@ const ProjectDetails = (props) => {
     // load project
     useEffect(() => {
         dispatch(getAProject(projectId));
+
+        return function cleanup() {
+            dispatch(resetProject());
+        }
     }, []);
     // check auth
     const auth = useSelector(state => state.firebase.auth);
