@@ -1,5 +1,6 @@
 const initState = {
-    loaded: true
+    list: [],
+    current: {},
 }
 
 const projectReducer = (state = initState, action) => {
@@ -37,6 +38,18 @@ const projectReducer = (state = initState, action) => {
             return state;
 
         case 'LOAD_PROJECT_ERROR':
+            console.log('load project error');
+            return state;
+
+        case 'GET_A_PROJECT_START':
+            console.log('load project start');
+            return state;
+
+        case 'GET_A_PROJECT_SUCCESS':
+            console.log('load project success');
+            return {...state, current: action.data};
+
+        case 'GET_A_PROJECT_ERROR':
             console.log('load project error');
             return state;
 

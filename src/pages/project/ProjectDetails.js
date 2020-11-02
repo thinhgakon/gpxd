@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useFirestoreConnect } from 'react-redux-firebase';
 import { Divider, Breadcrumb } from 'antd';
@@ -13,6 +13,14 @@ const ProjectDetails = (props) => {
     useFirestoreConnect(['projects'])
     const projects = useSelector(state => state.firestore.ordered.projects);
 
+    const projectRedux = useSelector((state) => state.project);
+
+    useEffect(() => {
+        dispatch(getAProject(id));
+      }, []);
+
+    console.log("projectRedux:",projectRedux);
+
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />
 
@@ -20,7 +28,9 @@ const ProjectDetails = (props) => {
     const project = projects ? projects[projectIndex] : null;
 
     if (!project) return null;
-    dispatch(getAProject(id));
+
+    // dispatch(getAProject(id));
+    
 
     return (
         <>
