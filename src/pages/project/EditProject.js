@@ -362,7 +362,7 @@ const EditProject = (props) => {
     } else {
         return (
             <div className="loading">
-                <Spin />
+                <Spin style={{ marginRight: "10px" }} /> Đang kết nối hoặc dữ liệu không tồn tại ...
             </div>
         );
     }

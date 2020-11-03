@@ -10,7 +10,7 @@ function AuthIsLoaded({ children }) {
     if (!isLoaded(auth)) {
         return (
             <div style={{ textAlign: "center", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Spin style={{ marginRight: "10px" }} /> Đang tải dữ liệu ...
+                <Spin style={{ marginRight: "10px" }} /> Đang xác thực tài khoản đăng nhập ...
             </div>
         )
     }

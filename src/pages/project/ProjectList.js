@@ -1,10 +1,10 @@
 import { Breadcrumb } from 'antd';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import TableProjects from './components/TableProjects';
 import { Redirect } from "react-router-dom";
 import { useEffect } from 'react';
 import { loadProject } from '../../store/actions/projectActions';
+import TableProjects from './components/TableProjects';
 
 const ProjectList = () => {
     const dispatch = useDispatch();
@@ -13,7 +13,6 @@ const ProjectList = () => {
     useEffect(() => {
         dispatch(loadProject());
     }, []);
-
 
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />
