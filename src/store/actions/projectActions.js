@@ -19,13 +19,13 @@ export const createProject = (project) => {
     }
 };
 
-export const updateProject = (project) => {
+export const updateProject = (project, id) => {
     return (dispatch, getState, getFirebase) => {
         dispatch({ type: 'UPDATE_PROJECT_START', project });
         // make async call to database
         const profile = getState().firebase.profile;
         const editorId = getState().firebase.auth.uid;
-        getFirebase().firestore().collection('projects').doc(project.id).update({
+        getFirebase().firestore().collection('projects').doc(id).update({
             ...project,
             editorFullName: profile.fullName,
             editorId: editorId,
@@ -33,29 +33,29 @@ export const updateProject = (project) => {
         }).then(() => {
             dispatch({ type: 'UPDATE_PROJECT_SUCCESS', project });
         }).catch(err => {
-            dispatch({ type: 'UPDATE_PROJECT_ERROR' }, err);
+            dispatch({ type: 'UPDATE_PROJECT_ERROR', err });
         });
     }
 };
 
 export const loadProject = () => {
-    // console.log("load project");
     return (dispatch, getState, getFirebase) => {
         dispatch({ type: 'LOAD_PROJECT_START' });
         // make async call to database
-        const profile = getState().firebase.profile;
-        const creatorId = getState().firebase.auth.uid;
         var projectsRef = getFirebase().firestore().collection("projects");
 
         projectsRef.get()
             .then(function (querySnapshot) {
-                console.log("querySnapshot:", querySnapshot);
+                var projects = [];
                 querySnapshot.forEach(function (doc) {
-                    console.log(doc.id, " => ", doc.data());
+                    // doc.data() is never undefined for query doc snapshots
+                    projects.push({ ...doc.data(), key: doc.id });
                 });
+                dispatch({ type: 'LOAD_PROJECT_SUCCESS', payload: projects });
+                // console.log("projects:", projects);
             })
-            .catch(err => {
-                dispatch({ type: 'LOAD_PROJECT_ERROR' }, err);
+            .catch(function (error) {
+                console.log("Error getting documents: ", error);
             });
     }
 };
@@ -68,7 +68,7 @@ export const getAProject = (projectId) => {
         firestore.collection('projects').doc(projectId).get().then((doc) => {
             if (doc.exists) {
                 const data = doc.data();
-                dispatch({ type: 'GET_A_PROJECT_SUCCESS', data })
+                dispatch({ type: 'GET_A_PROJECT_SUCCESS', payload: data })
             }
             else {
                 dispatch({ type: 'GET_A_PROJECT_ERROR' });

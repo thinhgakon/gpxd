@@ -1,13 +1,23 @@
 import { Breadcrumb } from 'antd';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TableProjects from './components/TableProjects';
-
-import { useFirestoreConnect } from 'react-redux-firebase';
+import { Redirect } from "react-router-dom";
+import { useEffect } from 'react';
+import { loadProject } from '../../store/actions/projectActions';
 
 const ProjectList = () => {
-    useFirestoreConnect(['projects'])
-    const projects = useSelector(state => state.firestore.ordered.projects);
+    const dispatch = useDispatch();
+    const projects = useSelector(state => state.project.list);
+
+    useEffect(() => {
+        dispatch(loadProject());
+    }, []);
+
+
+    const auth = useSelector(state => state.firebase.auth);
+    if (!auth.uid) return <Redirect to='/signin' />
+
     return (
         <>
             <Helmet>

@@ -27,7 +27,7 @@ const projectReducer = (state = initState, action) => {
             return { ...state, loading: false, current: action.project };
 
         case 'UPDATE_PROJECT_ERROR':
-            console.log('update project error');
+            console.log('update project error:', action.err);
             return { ...state, loading: false };
 
         case 'LOAD_PROJECT_START':
@@ -36,7 +36,7 @@ const projectReducer = (state = initState, action) => {
 
         case 'LOAD_PROJECT_SUCCESS':
             console.log('load project success');
-            return state;
+            return { ...state, list: action.payload };
 
         case 'LOAD_PROJECT_ERROR':
             console.log('load project error');
@@ -48,7 +48,7 @@ const projectReducer = (state = initState, action) => {
 
         case 'GET_A_PROJECT_SUCCESS':
             console.log('load project success');
-            return { ...state, current: action.data, loading: false };
+            return { ...state, current: action.payload, loading: false };
 
         case 'GET_A_PROJECT_ERROR':
             console.log('load project error');

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Space } from 'antd';
-import { Link, Redirect } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 const columns = [
     {
@@ -9,7 +8,7 @@ const columns = [
         dataIndex: 'owner',
         key: 'owner',
         render: (text, record) => (
-            <Link to={'/project/' + record.id} key={record.id} >{text}</Link>
+            <Link to={'/project/' + record.key} key={record.key} >{text}</Link>
         ),
     },
     {
@@ -40,7 +39,7 @@ const columns = [
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
-                <Link to={'/project/edit/' + record.id} key={record.id} >Edit</Link>
+                <Link to={'/project/edit/' + record.key} key={record.key} >Edit</Link>
                 <a>Delete </a>
             </Space>
         ),
@@ -57,15 +56,6 @@ const TableProjects = (props) => {
         }
     }, [projects]);
 
-    const auth = useSelector(state => state.firebase.auth);
-    if (!auth.uid) return <Redirect to='/signin' />
-
-    let newProjects = [];
-
-    if (projects != undefined) {
-        newProjects = projects.map(v => ({ ...v, key: v.id }));
-    }
-
     return (
         <>
             <Table
@@ -78,7 +68,7 @@ const TableProjects = (props) => {
                             <p><b>Nội dung phát hiện:</b> {record.content}</p>
                         </>,
                 }}
-                dataSource={newProjects} />
+                dataSource={projects} />
         </>
     )
 }

@@ -96,7 +96,7 @@ const EditProject = (props) => {
     const onFinish = (values) => {
         setLoading(true);
         setClickSave(true);
-        dispatch(updateProject({ ...values, id: projectId }));
+        dispatch(updateProject(values, projectId));
     };
 
     const onToggleTranhChap = () => {
@@ -170,20 +170,6 @@ const EditProject = (props) => {
                                     <Input />
                                 </Form.Item>
 
-                                {/* <Form.Item
-                                name="permitNumber"
-                                label="Giấy phép số"
-                            >
-                                <Input />
-                            </Form.Item>
-
-                            <Form.Item
-                                name="permitDate"
-                                label="Cấp ngày"
-                            >
-                                <DatePicker />
-                            </Form.Item> */}
-
                                 <Form.Item
                                     label="Giấy phép số"
                                     style={{
@@ -219,20 +205,6 @@ const EditProject = (props) => {
                                         <DatePicker style={{ width: "auto" }} />
                                     </Form.Item>
                                 </Form.Item>
-
-                                {/* <Form.Item
-                                name="permitAcreage"
-                                label="Diện tích cấp phép"
-                            >
-                                <Input />
-                            </Form.Item>
-
-                            <Form.Item
-                                name="realAcreage"
-                                label="Diện tích xây dựng thực tế"
-                            >
-                                <Input />
-                            </Form.Item> */}
 
                                 <Form.Item
                                     label="Diện tích cấp phép"
@@ -270,19 +242,6 @@ const EditProject = (props) => {
                                     </Form.Item>
                                 </Form.Item>
 
-                                {/* <Form.Item
-                                name="bandoso"
-                                label="Tờ bản đồ số"
-                            >
-                                <Input />
-                            </Form.Item>
-
-                            <Form.Item
-                                name="thuadatso"
-                                label="Thửa đất số"
-                            >
-                                <Input />
-                            </Form.Item> */}
                                 <Form.Item
                                     label="Tờ bản đồ số"
                                     style={{
@@ -349,13 +308,6 @@ const EditProject = (props) => {
                                     <TextArea />
                                 </Form.Item>
 
-                                {/* <Form.Item
-                                name="realAcreage"
-                                label="Có tranh chấp với ai không"
-                            >
-                                <Input />
-                            </Form.Item> */}
-
                                 <Form.Item name="tranhchap" label="Có tranh chấp không?">
                                     <Switch checked={tranhchap} onChange={onToggleTranhChap} />
                                 </Form.Item>
@@ -381,12 +333,6 @@ const EditProject = (props) => {
                                     <TextArea />
                                 </Form.Item>
 
-                                {/* <Form.Item
-                                name="coquankiemtra"
-                                label="Cơ quan kiểm tra"
-                            >
-                                <Input />
-                            </Form.Item> */}
                                 <Form.Item
                                     name="coquankiemtra"
                                     label="Cơ quan kiểm tra"
