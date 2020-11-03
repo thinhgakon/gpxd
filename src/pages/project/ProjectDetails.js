@@ -39,7 +39,7 @@ const ProjectDetails = (props) => {
             </Breadcrumb>
             <div className="site-layout-background site-layout-signin" style={{ padding: 24, minHeight: 360 }}>
                 <p>
-                    <b>Title:</b> {project.title}
+                    <b>Chủ hộ:</b> {project.owner}
                 </p>
                 <Divider />
                 <p>
@@ -47,7 +47,7 @@ const ProjectDetails = (props) => {
                 </p>
                 <Divider />
                 <p>
-                    <b>Posted by:</b> {project.authorFirstName} {project.authorLastName}
+                    <b>Posted by:</b> {project.creatorFullName}
                 </p>
                 <Divider />
                 <p>

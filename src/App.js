@@ -1,116 +1,26 @@
-import logo from './logo.svg';
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useFirestoreConnect } from 'react-redux-firebase';
-import { Layout, Menu } from 'antd';
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { Layout } from 'antd';
 import {
   BrowserRouter,
-  Switch,
-  Route,
-  NavLink
 } from "react-router-dom";
 import 'antd/dist/antd.css';
 import './index.css';
-import HomePage from './pages/home/HomePage';
-import SignIn from './pages/auth/SignIn';
-import SignUp from './pages/auth/SignUp';
-import ProjectList from './pages/project/ProjectList';
-import CreateProject from './pages/project/CreateProject';
-import ProjectDetails from './pages/project/ProjectDetails';
-import Navbar from './components/Navbar';
-import EditProject from './pages/project/EditProject';
-// import { loadProject } from './store/actions/projectActions';
-
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+import LeftSider from './components/LeftSider';
+import TopHeader from './components/TopHeader';
+import MainFooter from './components/MainFooter';
+import MainRoutes from './components/MainRoutes';
+const { Content } = Layout;
 
 function App() {
-  useFirestoreConnect(['projects'])
-  const projects = useSelector(state => state.firestore.ordered.projects);
-
-  const [collapsed, setCollapsed] = useState(false);
-  const onCollapse = collapsed => {
-    setCollapsed(collapsed);
-  };
-  // const dispatch = useDispatch();
-  // dispatch(loadProject());
   return (
     <BrowserRouter>
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-          <div className="logo">
-            <img src="./logo.svg" />
-            {!collapsed && <span>Logo here</span>}
-          </div>
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1" icon={<PieChartOutlined />}>
-              <NavLink to="/" activeClassName="active">
-                Home
-              </NavLink>
-            </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
-              <NavLink to="/signin" activeClassName="active">
-                SignIn
-              </NavLink>
-            </Menu.Item>
-            <SubMenu key="sub1" icon={<UserOutlined />} title="Tài khoản">
-              <Menu.Item key="3">
-                <NavLink to="/signin" activeClassName="active">Đăng nhập</NavLink>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <NavLink to="/signup" activeClassName="active">Đăng ký</NavLink>
-              </Menu.Item>
-              <Menu.Item key="5">Danh sách</Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" icon={<TeamOutlined />} title="Projects">
-              <Menu.Item key="6">
-                <NavLink to="/project" activeClassName="active">Danh sách</NavLink>
-              </Menu.Item>
-              <Menu.Item key="8">
-                <NavLink to="/project/add" activeClassName="active">Thêm mới</NavLink>
-              </Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9" icon={<FileOutlined />}>
-              Files
-              </Menu.Item>
-          </Menu>
-        </Sider>
+        <LeftSider />
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} >
-            <div className="topbar">
-              <Navbar />
-            </div>
-          </Header>
+          <TopHeader />
           <Content style={{ margin: '0 16px' }}>
-            <Switch>
-              <Route path="/home">
-                <HomePage />
-              </Route>
-              <Route path="/signin">
-                <SignIn />
-              </Route>
-              <Route path="/signup">
-                <SignUp />
-              </Route>
-              <Route exact path="/project">
-                <ProjectList projects={projects} />
-              </Route>
-              <Route path="/project/add" component={CreateProject} />
-              <Route path="/project/edit/:id" component={EditProject} />
-              <Route path='/project/:id' component={ProjectDetails} />
-              <Route path="/">
-                <HomePage />
-              </Route>
-            </Switch>
+            <MainRoutes />
           </Content>
-          <Footer style={{ textAlign: 'center' }}>©2020 Xây dựng bởi Thinh Nguyen Xuan</Footer>
+          <MainFooter />
         </Layout>
       </Layout>
     </BrowserRouter>
