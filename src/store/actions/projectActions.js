@@ -42,8 +42,8 @@ export const loadProject = () => {
     return (dispatch, getState, getFirebase) => {
         dispatch({ type: 'LOAD_PROJECT_START' });
         // make async call to database
-        var projectsRef = getFirebase().firestore().collection("projects");
-
+        const creatorId = getState().firebase.auth.uid;
+        var projectsRef = getFirebase().firestore().collection("projects").where("creatorId", "==", creatorId);
         projectsRef.get()
             .then(function (querySnapshot) {
                 var projects = [];

@@ -56,7 +56,7 @@ const projectReducer = (state = initState, action) => {
 
         case 'RESET_PROJECT':
             console.log('reset project');
-            return { ...state, current: null };
+            return { ...state, list: null, current: null };
 
         default:
             return state;

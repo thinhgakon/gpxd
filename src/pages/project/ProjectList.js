@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import { useEffect } from 'react';
-import { loadProject } from '../../store/actions/projectActions';
+import { loadProject, resetProject } from '../../store/actions/projectActions';
 import TableProjects from './components/TableProjects';
 
 const ProjectList = () => {
@@ -12,6 +12,9 @@ const ProjectList = () => {
 
     useEffect(() => {
         dispatch(loadProject());
+        return function cleanup() {
+            dispatch(resetProject());
+        }
     }, []);
 
     const auth = useSelector(state => state.firebase.auth);
