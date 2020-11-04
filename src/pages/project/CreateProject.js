@@ -377,7 +377,6 @@ const CreateProject = (props) => {
                                 </Select>
                             </Form.Item>
 
-
                         </Col>
                     </Row>
                     <Row>

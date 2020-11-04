@@ -81,7 +81,7 @@ const columns = [
     },
 ];
 
-const TableProjects = (props) => {
+const TableUsers = (props) => {
     const { projects } = props;
     const [loading, setLoading] = useState(true);
 
@@ -108,4 +108,4 @@ const TableProjects = (props) => {
     )
 }
 
-export default TableProjects
+export default TableUsers

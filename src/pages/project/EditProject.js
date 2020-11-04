@@ -139,6 +139,8 @@ const EditProject = (props) => {
                             huongxuly: editedProject.huongxuly,
                             ketquaxuly: editedProject.ketquaxuly,
                             coquankiemtra: editedProject.coquankiemtra,
+                            tinhtrangxuly: editedProject.tinhtrangxuly,
+                            status: editedProject.status,
                         }}
                     >
 
@@ -337,12 +339,34 @@ const EditProject = (props) => {
                                     name="coquankiemtra"
                                     label="Cơ quan kiểm tra"
                                 >
-                                    <Select style={{ width: 120 }} >
+                                    <Select style={{ width: 150 }} >
                                         <Option value="Phường">Phường</Option>
                                         <Option value="TP">Thành phố</Option>
                                     </Select>
                                 </Form.Item>
 
+                                <Form.Item
+                                    name="tinhtrangxuly"
+                                    label="Tình trạng xử lý"
+                                >
+                                    <Select style={{ width: 150 }} >
+                                        <Option value="Đã lập biên bản">Đã lập biên bản</Option>
+                                        <Option value="Đã gửi thông báo">Đã thông báo</Option>
+                                        <Option value="Đang xử lý">Đang xử lý</Option>
+                                        <Option value="Đã xử lý">Đã xử lý</Option>
+                                    </Select>
+                                </Form.Item>
+
+                                <Form.Item
+                                    name="status"
+                                    label="Trạng thái"
+                                >
+                                    <Select style={{ width: 150 }} >
+                                        <Option value="Bản nháp">Bản nháp</Option>
+                                        <Option value="Công khai">Công khai</Option>
+                                        <Option value="Hoàn thành">Hoàn thành</Option>
+                                    </Select>
+                                </Form.Item>
 
                             </Col>
                         </Row>

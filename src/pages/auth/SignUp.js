@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import {
   Form,
   Input,
-  Tooltip,
-  Checkbox,
+  Select,
   Button,
   Breadcrumb
 } from 'antd';
@@ -12,6 +11,8 @@ import { Helmet } from 'react-helmet';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from "./../../store/actions/authActions";
+
+const { Option } = Select;
 
 const formItemLayout = {
   labelCol: {
@@ -49,7 +50,7 @@ const SignUp = () => {
   const [form] = Form.useForm();
 
   const auth = useSelector(state => state.firebase.auth);
-  if (auth.uid) return <Redirect to='/' />
+  if (!auth.uid) return <Redirect to='/signin' />
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -73,10 +74,13 @@ const SignUp = () => {
         <Form
           {...formItemLayout}
           form={form}
-          name="register"
+          name="signup"
           className="signup-form"
           onFinish={onFinish}
           scrollToFirstError
+          initialValues={{
+            role: "Staff",
+          }}
         >
           <Form.Item
             name="email"
@@ -92,7 +96,21 @@ const SignUp = () => {
               },
             ]}
           >
-            <Input />
+            <Input placeholder="Nhập e-mail" />
+          </Form.Item>
+
+          <Form.Item
+            name="fullName"
+            label="Họ tên"
+            rules={[
+              {
+                required: true,
+                message: 'Vui lòng nhập họ tên!',
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input placeholder="Nhập họ tên người dùng" />
           </Form.Item>
 
           <Form.Item
@@ -106,7 +124,7 @@ const SignUp = () => {
             ]}
             hasFeedback
           >
-            <Input.Password />
+            <Input.Password placeholder="Nhập mật khẩu" />
           </Form.Item>
 
           <Form.Item
@@ -130,31 +148,27 @@ const SignUp = () => {
               }),
             ]}
           >
-            <Input.Password />
+            <Input.Password placeholder="Nhập lại mật khẩu xác nhận" />
           </Form.Item>
 
           <Form.Item
-            name="fullName"
-            label={
-              <span>
-                Họ tên&nbsp;
-            <Tooltip title="What do you want others to call you?">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
+            name="role"
+            label="Vai trò"
             rules={[
               {
                 required: true,
-                message: 'Vui lòng nhập họ tên!',
-                whitespace: true,
+                message: 'Vui lòng chọn vai trò người dùng!',
               },
             ]}
           >
-            <Input />
+            <Select style={{ width: 170 }} >
+              <Option value="Admin">Quản trị hệ thống</Option>
+              <Option value="Leader">Quản trị viên</Option>
+              <Option value="Staff">Nhân viên</Option>
+            </Select>
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             name="agreement"
             valuePropName="checked"
             rules={[
@@ -168,10 +182,10 @@ const SignUp = () => {
             <Checkbox>
               Tôi đã đọc <a href="">điều khoản</a>
             </Checkbox>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
-              Đăng ký
+              Tạo tài khoản
         </Button>
           </Form.Item>
         </Form>

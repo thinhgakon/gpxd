@@ -43,7 +43,9 @@ export const loadProject = () => {
         dispatch({ type: 'LOAD_PROJECT_START' });
         // make async call to database
         const creatorId = getState().firebase.auth.uid;
-        var projectsRef = getFirebase().firestore().collection("projects").where("creatorId", "==", creatorId);
+        var projectsRef = getFirebase().firestore().collection("projects");
+        if (creatorId)
+            projectsRef = projectsRef.where("creatorId", "==", creatorId);
         projectsRef.get()
             .then(function (querySnapshot) {
                 var projects = [];
@@ -76,6 +78,61 @@ export const getAProject = (projectId) => {
             }
 
         })
+    }
+};
+
+export const removeAllProjects = (projects) => {
+    return (dispatch, getState, getFirebase) => {
+        // make async call to database
+        const firestore = getFirebase().firestore();
+        projects.forEach(element => {
+            firestore.collection("projects").doc(element.id).delete().then(function () {
+                console.log("Document successfully deleted!");
+            }).catch(function (error) {
+                console.error("Error removing document: ", error);
+            });
+        });
+    }
+};
+
+export const addSimpleProjects = () => {
+    return (dispatch, getState, getFirebase) => {
+        // make async call to database
+        const profile = getState().firebase.profile;
+        const creatorId = getState().firebase.auth.uid;
+        const firestore = getFirebase().firestore();
+        var projectsRef = firestore.collection("projects");
+        for (let i = 0; i < 50; i++) {
+            projectsRef.add({
+                owner: "Họ tên chủ hộ " + i,
+                address: "Địa chỉ xây dựng " + i,
+                permitNumber: "123",
+                permitDate: "",
+                permitAcreage: "126",
+                realAcreage: "126",
+                bandoso: "12",
+                thuadatso: "12",
+                qhduong: "10",
+                qhmuong: "10",
+                qhdien: "10",
+                content: "Ko co",
+                tranhchap: false,
+                bienbanso: "111",
+                huongxuly: "Ko co",
+                ketquaxuly: "Ko co",
+                coquankiemtra: "Phường",
+                creatorFullName: profile.fullName,
+                creatorId: creatorId,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            })
+                .then(function (docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                })
+                .catch(function (error) {
+                    console.error("Error adding document: ", error);
+                });
+        }
     }
 };
 

@@ -10,6 +10,8 @@ import ProjectList from './../pages/project/ProjectList';
 import CreateProject from './../pages/project/CreateProject';
 import ProjectDetails from './../pages/project/ProjectDetails';
 import EditProject from './../pages/project/EditProject';
+import SimpleData from '../pages/SimpleData';
+import UserList from '../pages/auth/UserList';
 
 const MainRoutes = () => {
     return (
@@ -24,14 +26,20 @@ const MainRoutes = () => {
                 <Route path="/signup">
                     <SignUp />
                 </Route>
+                <Route exact path="/user">
+                    <UserList />
+                </Route>
                 <Route exact path="/project">
                     <ProjectList />
                 </Route>
                 <Route path="/project/add" component={CreateProject} />
                 <Route path="/project/edit/:id" component={EditProject} />
                 <Route path='/project/:id' component={ProjectDetails} />
+                <Route path="/simpledata">
+                    <SimpleData />
+                </Route>
                 <Route path="/">
-                    <HomePage />
+                    <ProjectList />
                 </Route>
             </Switch>
         </>

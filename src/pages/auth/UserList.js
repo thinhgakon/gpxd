@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import { useEffect } from 'react';
 import { loadProject, resetProject } from '../../store/actions/projectActions';
-import TableProjects from './components/TableProjects';
+import TableUsers from './components/TableUsers';
 
-const ProjectList = () => {
+const UserList = () => {
     const dispatch = useDispatch();
     const projects = useSelector(state => state.project.list);
+    const allStates = useSelector(state => state);
 
     useEffect(() => {
         dispatch(loadProject());
@@ -16,6 +17,7 @@ const ProjectList = () => {
             dispatch(resetProject());
         }
     }, []);
+    console.log("allStates:", allStates);
 
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />
@@ -30,11 +32,11 @@ const ProjectList = () => {
                 <Breadcrumb.Item>Nhật ký kiểm tra</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background site-layout-signin" style={{ padding: 24, minHeight: 360 }}>
-                <TableProjects projects={projects} />
+                <TableUsers projects={projects} />
             </div>
 
         </>
     )
 }
 
-export default ProjectList
+export default UserList
