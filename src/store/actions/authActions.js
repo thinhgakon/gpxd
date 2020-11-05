@@ -36,10 +36,8 @@ export const signUp = (newUser) => {
             newUser.email,
             newUser.password
         ).then(resp => {
-            firestore.collection('users').doc(resp.user.uid).set({
+            return firestore.collection('users').doc(resp.user.uid).set({
                 fullName: newUser.fullName,
-            });
-            return firestore.collection('roles').doc(resp.user.uid).set({
                 role: newUser.role,
             });
         }).then(() => {

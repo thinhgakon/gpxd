@@ -24,9 +24,9 @@ const columns = [
         ),
     },
     {
-        title: 'Địa chỉ',
-        dataIndex: 'address',
-        key: 'address',
+        title: 'Vai trò',
+        dataIndex: 'role',
+        key: 'role',
     },
     {
         title: 'Thao tác',
