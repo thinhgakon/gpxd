@@ -14,7 +14,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams, withRouter } from 'react-router-dom';
 import { updateProject } from '../../store/actions/projectActions'
 import { getAProject, resetProject } from '../../store/actions/projectActions';
 const { TextArea } = Input;
@@ -392,4 +392,4 @@ const EditProject = (props) => {
     }
 };
 
-export default EditProject;
+export default withRouter(EditProject);

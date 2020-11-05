@@ -13,7 +13,8 @@ import {
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Redirect, withRouter } from 'react-router-dom';
 import { createProject } from '../../store/actions/projectActions'
 const { TextArea } = Input;
 const { Option } = Select;
@@ -394,4 +395,4 @@ const CreateProject = (props) => {
     );
 };
 
-export default CreateProject;
+export default withRouter(CreateProject);

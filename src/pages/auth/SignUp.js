@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   Input,
   Select,
   Button,
-  Breadcrumb
+  Breadcrumb,
+  message,
 } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from "./../../store/actions/authActions";
 
@@ -45,20 +45,34 @@ const tailFormItemLayout = {
   },
 };
 
-const SignUp = () => {
+const SignUp = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+
+  const [loading, setLoading] = useState(false);
+  const [clickSave, setClickSave] = useState(false);
+  const loadingStatus = useSelector((state) => state.auth.loading);
+
+  useEffect(() => {
+    setLoading(loadingStatus);
+  }, [loadingStatus]);
+
+  useEffect(() => {
+    if (clickSave) {
+      message.success('Thêm mới dữ liệu thành công!');
+      setTimeout(() => {
+        props.history.push('/user');
+      }, 500);
+    }
+  }, [loading]);
 
   const auth = useSelector(state => state.firebase.auth);
   if (!auth.uid) return <Redirect to='/signin' />
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    const { email, password, fullName } = values;
-    const newUser = {
-      email, password, fullName
-    }
-    dispatch(signUp(newUser));
+    setLoading(true);
+    setClickSave(true);
+    dispatch(signUp(values));
   };
 
   return (
@@ -184,7 +198,7 @@ const SignUp = () => {
             </Checkbox>
           </Form.Item> */}
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
+            <Button loading={loading} type="primary" htmlType="submit">
               Tạo tài khoản
         </Button>
           </Form.Item>
@@ -194,4 +208,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp);
