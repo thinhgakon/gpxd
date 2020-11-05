@@ -16,11 +16,11 @@ const statusColors = {
 
 const columns = [
     {
-        title: 'Chủ hộ',
-        dataIndex: 'owner',
-        key: 'owner',
+        title: 'Họ tên',
+        dataIndex: 'fullName',
+        key: 'fullName',
         render: (text, record) => (
-            <Link to={'/project/' + record.key} key={record.key} >{text}</Link>
+            <Link to={'/user/' + record.key} key={record.key} >{text}</Link>
         ),
     },
     {
@@ -29,52 +29,11 @@ const columns = [
         key: 'address',
     },
     {
-        title: 'Người tạo',
-        key: 'creatorFullName',
-        render: (text, record) => (
-            <>
-                {record.creatorFullName}
-            </>
-        ),
-    },
-    {
-        title: 'Tình trạng',
-        key: 'tinhtrangxuly',
-        render: (text, record) => (
-            <>
-                <Tag color={colors[record.tinhtrangxuly]}>
-                    {record.tinhtrangxuly}
-                </Tag>
-            </>
-        ),
-    },
-    {
-        title: 'Trạng thái',
-        key: 'status',
-        render: (text, record) => (
-            <>
-                <Tag color={statusColors[record.status]}>
-                    {record.status}
-                </Tag>
-            </>
-        ),
-    },
-    {
-        title: 'Ngày tạo',
-        key: 'CreatedAt',
-        render: (text, record) => (
-            <>
-                {record.createdAt.toDate().toDateString()}
-                {/* {record.createdAt.toDate().toLocaleTimeString('en-US')} */}
-            </>
-        ),
-    },
-    {
         title: 'Thao tác',
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
-                <Link to={'/project/edit/' + record.key} key={record.key} >Edit</Link>
+                <Link to={'/user/edit/' + record.key} key={record.key} >Edit</Link>
                 <a>Delete </a>
             </Space>
         ),
@@ -82,14 +41,14 @@ const columns = [
 ];
 
 const TableUsers = (props) => {
-    const { projects } = props;
+    const { users } = props;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (projects != undefined) {
+        if (users != undefined) {
             setLoading(false);
         }
-    }, [projects]);
+    }, [users]);
 
     return (
         <>
@@ -103,7 +62,7 @@ const TableUsers = (props) => {
                             <p><b>Nội dung phát hiện:</b> {record.content}</p>
                         </>,
                 }}
-                dataSource={projects} />
+                dataSource={users} />
         </>
     )
 }

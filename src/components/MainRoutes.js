@@ -11,7 +11,7 @@ import CreateProject from './../pages/project/CreateProject';
 import ProjectDetails from './../pages/project/ProjectDetails';
 import EditProject from './../pages/project/EditProject';
 import SimpleData from '../pages/SimpleData';
-import UserList from '../pages/auth/UserList';
+import UserList from '../pages/user/UserList';
 
 const MainRoutes = () => {
     return (
