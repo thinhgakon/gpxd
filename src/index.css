@@ -56,6 +56,7 @@ code {
 /* SIGNIN */
 .site-layout-signin .login-form {
   max-width: 350px;
+  min-width: 300px;
   margin: auto;
 }
 
