@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Breadcrumb, Form, Input, Button, Checkbox, Row, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {
@@ -28,11 +28,21 @@ const SignIn = () => {
   const authError = useSelector((state) => state.auth.authError);
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(true);
+  const [clickSave, setClickSave] = useState(false);
+  const loadingStatus = useSelector((state) => state.auth.loading);
+
+  useEffect(() => {
+    setLoading(loadingStatus);
+  }, [loadingStatus]);
+
   const auth = useSelector(state => state.firebase.auth);
   if (auth.uid) return <Redirect to='/' />
 
   const onFinish = (values) => {
     console.log('Success:', values);
+    setLoading(true);
+    setClickSave(true);
     dispatch(signIn({ email: values.username, password: values.password }));
   };
 
@@ -86,10 +96,10 @@ const SignIn = () => {
                 </Form.Item>
 
                 <Form.Item>
-                  <Button type="primary" htmlType="submit" className="login-form-button">
+                  <Button loading={loading} type="primary" htmlType="submit" className="login-form-button">
                     Đăng nhập
                   </Button>
-                  <div className="red-text center">
+                  <div style={{ padding: "10px 0" }} className="red-text center">
                     {authError ? <p>{authError}</p> : null}
                   </div>
                 </Form.Item>

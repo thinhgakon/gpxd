@@ -15,7 +15,11 @@ const authReducer = (state = initState, action) => {
 
         case 'LOGIN_ERROR':
             console.log('login error');
-            return { ...state, authError: "Đăng nhập thất bại", loading: false }
+            return {
+                ...state,
+                authError: "E-mail hoặc mật khẩu đăng nhập không hợp lệ!",
+                loading: false
+            }
 
         case 'SIGNOUT_START':
             console.log('signout start');
