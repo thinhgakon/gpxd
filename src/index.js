@@ -11,16 +11,29 @@ import { getFirebase, ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createFirestoreInstance } from "redux-firestore";
 import rootReducer from './store/reducers/rootReducer';
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { PersistGate } from "redux-persist/integration/react";
 import AuthIsLoaded from './pages/auth/AuthIsLoaded';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import "./config/fbConfig";
 
-const store = createStore(rootReducer,
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["auth"],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = createStore(persistedReducer,
   compose(
     applyMiddleware(thunk.withExtraArgument(getFirebase))
   )
 );
+
+let persistor = persistStore(store);
 
 const rrfConfig = {
   userProfile: 'users',
@@ -32,15 +45,17 @@ const rrfProps = {
   config: rrfConfig,
   dispatch: store.dispatch,
   createFirestoreInstance,
-};  
+};
 
 ReactDOM.render(
   <Provider store={store} >
-    <ReactReduxFirebaseProvider {...rrfProps}>
-      <AuthIsLoaded>
-        <App />
-      </AuthIsLoaded>
-    </ReactReduxFirebaseProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <AuthIsLoaded>
+          <App />
+        </AuthIsLoaded>
+      </ReactReduxFirebaseProvider>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 );
