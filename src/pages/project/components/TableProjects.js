@@ -56,7 +56,7 @@ const TableProjects = (props) => {
                 { text: 'Đã xử lý', value: 'Đã xử lý' },
             ],
             filteredValue: filterInfo.tinhtrangxuly || null,
-            onFilter: (value, record) => record.tinhtrangxuly.includes(value),
+            onFilter: (value, record) => record.tinhtrangxuly ? record.tinhtrangxuly.includes(value) : "",
             ellipsis: true,
             render: (text, record) => (
                 <>
