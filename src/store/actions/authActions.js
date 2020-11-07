@@ -5,8 +5,22 @@ export const signIn = (credentials) => {
         firebase.auth().signInWithEmailAndPassword(
             credentials.email,
             credentials.password
-        ).then(() => {
-            dispatch({ type: 'LOGIN_SUCCESS' });
+        ).then((resp) => {
+            var docRef = getFirebase().firestore().collection('users').doc(resp.user.uid);
+            docRef.get().then(function (doc) {
+                if (doc.exists) {
+                    const data = doc.data();
+                    dispatch({ type: 'LOGIN_SUCCESS', data });
+                    console.log("Document data:", doc.data());
+                } else {
+                    // doc.data() will be undefined in this case
+                    dispatch({ type: 'LOGIN_SUCCESS' });
+                    console.log("No such document!");
+                }
+            }).catch(function (error) {
+                console.log("Error getting document:", error);
+            });
+
         }).catch((err) => {
             dispatch({ type: 'LOGIN_ERROR', err });
         });
