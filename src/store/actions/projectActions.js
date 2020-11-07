@@ -38,14 +38,18 @@ export const updateProject = (project, id) => {
     }
 };
 
-export const loadProject = () => {
+export const loadProject = (role) => {
     return (dispatch, getState, getFirebase) => {
         dispatch({ type: 'LOAD_PROJECT_START' });
         // make async call to database
         const creatorId = getState().firebase.auth.uid;
         var projectsRef = getFirebase().firestore().collection("projects");
-        if (creatorId)
+        if (role == "Staff") {
             projectsRef = projectsRef.where("creatorId", "==", creatorId);
+        }
+        else {
+            projectsRef = projectsRef.where("status", "!=", "Bản nháp");
+        }
         projectsRef.get()
             .then(function (querySnapshot) {
                 var projects = [];

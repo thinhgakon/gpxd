@@ -9,9 +9,10 @@ import TableProjects from './components/TableProjects';
 const ProjectList = () => {
     const dispatch = useDispatch();
     const projects = useSelector(state => state.project.list);
+    const role = useSelector(state => state.auth.role);
 
     useEffect(() => {
-        dispatch(loadProject());
+        dispatch(loadProject(role));
         return function cleanup() {
             dispatch(resetProject());
         }
