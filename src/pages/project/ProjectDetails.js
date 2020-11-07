@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Divider, Breadcrumb, Spin } from 'antd';
 import { Helmet } from 'react-helmet';
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect, useParams } from "react-router-dom";
 import { getAProject, resetProject } from '../../store/actions/projectActions'
 
 const ProjectDetails = (props) => {
     const dispatch = useDispatch();
-    const projectId = props.match.params.id;
+    const projectId = useParams().id;
     const project = useSelector((state) => state.project.current);
 
     // load project

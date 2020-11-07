@@ -14,82 +14,100 @@ const statusColors = {
     "Hoàn thành": "cyan",
 }
 
-const columns = [
-    {
-        title: 'Chủ hộ',
-        dataIndex: 'owner',
-        key: 'owner',
-        render: (text, record) => (
-            <Link to={'/project/' + record.key} key={record.key} >{text}</Link>
-        ),
-    },
-    {
-        title: 'Địa chỉ',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Người tạo',
-        key: 'creatorFullName',
-        render: (text, record) => (
-            <>
-                {record.creatorFullName}
-            </>
-        ),
-    },
-    {
-        title: 'Tình trạng',
-        key: 'tinhtrangxuly',
-        render: (text, record) => (
-            <>
-                <Tag color={colors[record.tinhtrangxuly]}>
-                    {record.tinhtrangxuly}
-                </Tag>
-            </>
-        ),
-    },
-    {
-        title: 'Trạng thái',
-        key: 'status',
-        render: (text, record) => (
-            <>
-                <Tag color={statusColors[record.status]}>
-                    {record.status}
-                </Tag>
-            </>
-        ),
-    },
-    {
-        title: 'Ngày tạo',
-        key: 'CreatedAt',
-        render: (text, record) => (
-            <>
-                {record.createdAt.toDate().toDateString()}
-                {/* {record.createdAt.toDate().toLocaleTimeString('en-US')} */}
-            </>
-        ),
-    },
-    {
-        title: 'Thao tác',
-        key: 'action',
-        render: (text, record) => (
-            <Space size="middle">
-                <Link to={'/project/edit/' + record.key} key={record.key} >Edit</Link>
-                <a>Delete </a>
-            </Space>
-        ),
-    },
-];
-
 const TableProjects = (props) => {
     const { projects } = props;
     const [loading, setLoading] = useState(true);
+    const [filteredInfo, setFilteredInfo] = useState(null);
+
+    let filterInfo = filteredInfo;
+    filterInfo = filterInfo || {};
+
+    const columns = [
+        {
+            title: 'Chủ hộ',
+            dataIndex: 'owner',
+            key: 'owner',
+            render: (text, record) => (
+                <Link to={'/project/' + record.key} key={record.key} >{text}</Link>
+            ),
+        },
+        {
+            title: 'Địa chỉ',
+            dataIndex: 'address',
+            key: 'address',
+        },
+        {
+            title: 'Người tạo',
+            key: 'creatorFullName',
+            render: (text, record) => (
+                <>
+                    {record.creatorFullName}
+                </>
+            ),
+        },
+        {
+            title: 'Tình trạng',
+            dataIndex: 'address',
+            key: 'tinhtrangxuly',
+            filters: [
+                { text: 'Đã lập biên bản', value: 'Đã lập biên bản' },
+                { text: 'Đã gửi thông báo', value: 'Đã gửi thông báo' },
+                { text: 'Đang xử lý', value: 'Đang xử lý' },
+                { text: 'Đã xử lý', value: 'Đã xử lý' },
+            ],
+            filteredValue: filterInfo.tinhtrangxuly || null,
+            onFilter: (value, record) => record.tinhtrangxuly.includes(value),
+            ellipsis: true,
+            render: (text, record) => (
+                <>
+                    <Tag color={colors[record.tinhtrangxuly]}>
+                        {record.tinhtrangxuly}
+                    </Tag>
+                </>
+            ),
+        },
+        {
+            title: 'Trạng thái',
+            key: 'status',
+            render: (text, record) => (
+                <>
+                    <Tag color={statusColors[record.status]}>
+                        {record.status}
+                    </Tag>
+                </>
+            ),
+        },
+        {
+            title: 'Ngày tạo',
+            key: 'CreatedAt',
+            render: (text, record) => (
+                <>
+                    {record.createdAt.toDate().toDateString()}
+                </>
+            ),
+        },
+        {
+            title: 'Thao tác',
+            key: 'action',
+            render: (text, record) => (
+                <Space size="middle">
+                    <Link to={'/project/edit/' + record.key} key={record.key} >Edit</Link>
+                    <a>Delete </a>
+                </Space>
+            ),
+        },
+    ];
 
     useEffect(() => {
         if (projects != undefined) {
             setLoading(false);
         }
     }, [projects]);
+
+    const handleChange = (pagination, filters, sorter) => {
+        console.log('Various parameters', pagination, filters, sorter);
+        setFilteredInfo(filters);
+    };
 
     return (
         <>
@@ -103,7 +121,9 @@ const TableProjects = (props) => {
                             <p><b>Nội dung phát hiện:</b> {record.content}</p>
                         </>,
                 }}
-                dataSource={projects} />
+                dataSource={projects}
+                onChange={handleChange}
+            />
         </>
     )
 }

@@ -121,6 +121,8 @@ export const addSimpleProjects = () => {
                 huongxuly: "Ko co",
                 ketquaxuly: "Ko co",
                 coquankiemtra: "Phường",
+                tinhtrangxuly: "Đã gửi thông báo",
+                status: "Công khai",
                 creatorFullName: profile.fullName,
                 creatorId: creatorId,
                 createdAt: new Date(),
