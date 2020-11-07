@@ -13,7 +13,7 @@ const SignedInLinks = ({ profile }) => {
         <li className="topbar__avatar"><Avatar src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" /></li>
         <li className="topbar_name"><NavLink to='/' className="btn btn-floating pink lighten-1">{profile.fullName}</NavLink></li>
         <li>/</li>
-        <li className="topbar_link"><a onClick={() => dispatch(signOut())} >Log Out</a></li>
+        <li className="topbar_link"><a onClick={() => dispatch(signOut())} >Đăng xuất</a></li>
       </ul>
     </>
   )
