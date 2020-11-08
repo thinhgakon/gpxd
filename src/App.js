@@ -14,6 +14,7 @@ import EditProject from './pages/project/EditProject';
 import SimpleData from './pages/SimpleData';
 import UserList from './pages/user/UserList';
 import CommonLayout from './layouts/CommonLayout';
+import ChangePassword from './pages/auth/ChangePassword';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <CommonLayout path="/home" component={HomePage} />
         <Route path="/signin" component={SignIn} />
         <CommonLayout path="/signup" component={SignUp} />
+        <CommonLayout path="/changepass" component={ChangePassword} />
         <CommonLayout exact path="/user" component={UserList} />
         <CommonLayout exact path="/project" component={ProjectList} />
         <CommonLayout path="/project/add" component={CreateProject} />

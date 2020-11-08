@@ -62,3 +62,23 @@ export const signUp = (newUser) => {
         });
     }
 }
+
+export const changePassword = (values) => {
+    return (dispatch, getState, getFirebase) => {
+        dispatch({ type: 'CHANGE_PASSWORD_START' });
+        console.log("values:", values);
+        let user = getFirebase().auth().currentUser;
+        user.updatePassword(values.password).then(() => {
+            dispatch({ type: 'CHANGE_PASSWORD_SUCCESS' });
+        }).catch((err) => {
+            console.log("err:", err);
+            dispatch({ type: 'CHANGE_PASSWORD_ERROR', err });
+        });
+    }
+}
+
+export const resetAuth = () => {
+    return {
+        type: 'RESET_AUTH',
+    }
+}

@@ -6,6 +6,7 @@ const initState = {
 
 const authReducer = (state = initState, action) => {
     switch (action.type) {
+        // login
         case 'LOGIN_START':
             console.log('login start');
             return { ...state, loading: true }
@@ -22,6 +23,7 @@ const authReducer = (state = initState, action) => {
                 loading: false
             }
 
+        // logout
         case 'SIGNOUT_START':
             console.log('signout start');
             return { ...state, loading: true }
@@ -34,6 +36,7 @@ const authReducer = (state = initState, action) => {
             console.log('signout eror');
             return { ...state, authError: "Đăng xuất thất bại", loading: false }
 
+        // signup
         case 'SIGNUP_START':
             console.log('signup start')
             return { ...state, loading: true }
@@ -45,6 +48,23 @@ const authReducer = (state = initState, action) => {
         case 'SIGNUP_ERROR':
             console.log('signup error', action.err)
             return { ...state, authError: action.err.message, loading: false }
+
+        // change password
+        case 'CHANGE_PASSWORD_START':
+            console.log('change password start')
+            return { ...state, loading: true }
+
+        case 'CHANGE_PASSWORD_SUCCESS':
+            console.log('change password success')
+            return { ...state, authError: null, loading: false }
+
+        case 'CHANGE_PASSWORD_ERROR':
+            console.log('change password error', action.err)
+            return { ...state, authError: action.err.message, loading: false }
+
+        case 'RESET_AUTH':
+            console.log('reset auth');
+            return { ...state, authError: null, loading: false };
 
         default:
             return state
