@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter, Switch, Route
+  BrowserRouter, Switch, Route, HashRouter
 } from "react-router-dom";
 import 'antd/dist/antd.css';
 import './index.css';
@@ -17,20 +17,22 @@ import CommonLayout from './layouts/CommonLayout';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <CommonLayout path="/home" component={HomePage} />
-        <Route path="/signin" component={SignIn} />
-        <CommonLayout path="/signup" component={SignUp} />
-        <CommonLayout exact path="/user" component={UserList} />
-        <CommonLayout exact path="/project" component={ProjectList} />
-        <CommonLayout path="/project/add" component={CreateProject} />
-        <CommonLayout path="/project/edit/:id" component={EditProject} />
-        <CommonLayout path='/project/:id' component={ProjectDetails} />
-        <CommonLayout path="/simpledata" component={SimpleData} />
-        <CommonLayout path="/" component={ProjectList} />
-      </Switch>
-    </BrowserRouter >
+    <HashRouter basename='/'>
+      <BrowserRouter>
+        <Switch>
+          <CommonLayout path="/home" component={HomePage} />
+          <Route path="/signin" component={SignIn} />
+          <CommonLayout path="/signup" component={SignUp} />
+          <CommonLayout exact path="/user" component={UserList} />
+          <CommonLayout exact path="/project" component={ProjectList} />
+          <CommonLayout path="/project/add" component={CreateProject} />
+          <CommonLayout path="/project/edit/:id" component={EditProject} />
+          <CommonLayout path='/project/:id' component={ProjectDetails} />
+          <CommonLayout path="/simpledata" component={SimpleData} />
+          <CommonLayout path="/" component={ProjectList} />
+        </Switch>
+      </BrowserRouter >
+    </HashRouter>
   );
 }
 
