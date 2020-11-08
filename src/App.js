@@ -18,20 +18,20 @@ import CommonLayout from './layouts/CommonLayout';
 function App() {
   return (
     <HashRouter basename='/'>
-      <BrowserRouter>
-        <Switch>
-          <CommonLayout path="/home" component={HomePage} />
-          <Route path="/signin" component={SignIn} />
-          <CommonLayout path="/signup" component={SignUp} />
-          <CommonLayout exact path="/user" component={UserList} />
-          <CommonLayout exact path="/project" component={ProjectList} />
-          <CommonLayout path="/project/add" component={CreateProject} />
-          <CommonLayout path="/project/edit/:id" component={EditProject} />
-          <CommonLayout path='/project/:id' component={ProjectDetails} />
-          <CommonLayout path="/simpledata" component={SimpleData} />
-          <CommonLayout path="/" component={ProjectList} />
-        </Switch>
-      </BrowserRouter >
+      {/* <BrowserRouter> */}
+      <Switch>
+        <CommonLayout path="/home" component={HomePage} />
+        <Route path="/signin" component={SignIn} />
+        <CommonLayout path="/signup" component={SignUp} />
+        <CommonLayout exact path="/user" component={UserList} />
+        <CommonLayout exact path="/project" component={ProjectList} />
+        <CommonLayout path="/project/add" component={CreateProject} />
+        <CommonLayout path="/project/edit/:id" component={EditProject} />
+        <CommonLayout path='/project/:id' component={ProjectDetails} />
+        <CommonLayout path="/simpledata" component={SimpleData} />
+        <CommonLayout path="/" component={ProjectList} />
+      </Switch>
+      {/* </BrowserRouter > */}
     </HashRouter>
   );
 }
