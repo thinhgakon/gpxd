@@ -122,6 +122,7 @@ const TableProjects = (props) => {
                         </>,
                 }}
                 dataSource={projects}
+                scroll={{ x: 1300 }}
                 onChange={handleChange}
             />
         </>

@@ -120,6 +120,8 @@ const CreateProject = (props) => {
                         huongxuly: "",
                         ketquaxuly: "",
                         coquankiemtra: "Phường",
+                        tinhtrangxuly: "Đã lập biên bản",
+                        status: "Bản nháp",
                     }}
                 >
 
@@ -375,6 +377,29 @@ const CreateProject = (props) => {
                                 <Select style={{ width: 120 }} >
                                     <Option value="Phường">Phường</Option>
                                     <Option value="TP">Thành phố</Option>
+                                </Select>
+                            </Form.Item>
+
+                            <Form.Item
+                                name="tinhtrangxuly"
+                                label="Tình trạng xử lý"
+                            >
+                                <Select style={{ width: 150 }} >
+                                    <Option value="Đã lập biên bản">Đã lập biên bản</Option>
+                                    <Option value="Đã gửi thông báo">Đã thông báo</Option>
+                                    <Option value="Đang xử lý">Đang xử lý</Option>
+                                    <Option value="Đã xử lý">Đã xử lý</Option>
+                                </Select>
+                            </Form.Item>
+
+                            <Form.Item
+                                name="status"
+                                label="Trạng thái"
+                            >
+                                <Select style={{ width: 150 }} >
+                                    <Option value="Bản nháp">Bản nháp</Option>
+                                    <Option value="Công khai">Công khai</Option>
+                                    <Option value="Hoàn thành">Hoàn thành</Option>
                                 </Select>
                             </Form.Item>
 
