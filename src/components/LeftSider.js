@@ -11,6 +11,7 @@ import {
     NavLink
 } from "react-router-dom";
 import 'antd/dist/antd.css';
+import logo from './../assets/logo.svg';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -25,8 +26,8 @@ const LeftSider = () => {
         <>
             <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
                 <div className="logo">
-                    <img src="./logo.svg" />
-                    {!collapsed && <span>Logo here</span>}
+                    <img src={logo} />
+                    {!collapsed && <span>Nhật ký GPXD</span>}
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                     <Menu.Item key="1" icon={<PieChartOutlined />}>

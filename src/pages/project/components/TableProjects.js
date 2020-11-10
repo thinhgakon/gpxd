@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Space, Tag } from 'antd';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import {
+    EditOutlined,
+    DeleteOutlined,
+} from '@ant-design/icons';
 
 const colors = {
     "Đã lập biên bản": "magenta",
@@ -28,7 +32,7 @@ const TableProjects = (props) => {
             dataIndex: 'owner',
             key: 'owner',
             render: (text, record) => (
-                <Link to={'/project/' + record.key} key={record.key} >{text}</Link>
+                <NavLink to={'/project/' + record.key} key={record.key} >{text}</NavLink>
             ),
         },
         {
@@ -91,8 +95,8 @@ const TableProjects = (props) => {
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <Link to={'/project/edit/' + record.key} key={record.key} >Edit</Link>
-                    <a>Delete </a>
+                    <NavLink to={'/project/edit/' + record.key} key={record.key} style={{ color: "#04ccb0" }} >{<EditOutlined />} Sửa</NavLink>
+                    <a style={{ color: "#ff046c" }}>{<DeleteOutlined />} Xóa</a>
                 </Space>
             ),
         },
