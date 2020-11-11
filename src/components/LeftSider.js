@@ -25,10 +25,12 @@ const LeftSider = () => {
     return (
         <>
             <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-                <div className="logo">
-                    <img src={logo} />
-                    {!collapsed && <span>Nhật ký GPXD</span>}
-                </div>
+                <NavLink to="/" activeClassName="active">
+                    <div className="logo">
+                        <img src={logo} />
+                        {!collapsed && <span>Nhật ký GPXD</span>}
+                    </div>
+                </NavLink>
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                     <Menu.Item key="1" icon={<PieChartOutlined />}>
                         <NavLink to="/" activeClassName="active">

@@ -30,7 +30,9 @@ const ProjectList = () => {
                 <title>Nhật ký kiểm tra trật tự xây dựng</title>
             </Helmet>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <NavLink to="/">Trang chủ</NavLink>
+                </Breadcrumb.Item>
                 <Breadcrumb.Item>Nhật ký kiểm tra</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background site-layout-signin" style={{ padding: 24, minHeight: 360 }}>
