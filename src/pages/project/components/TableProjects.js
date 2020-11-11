@@ -121,8 +121,16 @@ const TableProjects = (props) => {
                 expandable={{
                     expandedRowRender: record =>
                         <>
-                            <p><b>Địa chỉ:</b> {record.address}</p>
+                            <p><b>Giấy phép số:</b> {record.permitNumber} - <b>Cấp ngày:</b> {record.permitDate}</p>
+                            <p><b>Diện tích cấp phép:</b> {record.permitAcreage} - <b>Thực tế:</b> {record.realAcreage}</p>
+                            <p><b>Tờ bản đồ số:</b> {record.bandoso} - <b>Thửa đất số:</b> {record.thuadatso}</p>
+                            <p><b>Quy hoạch đường:</b> {record.qhduong} - <b>Quy hoạch mương:</b> {record.qhmuong} - <b>Quy hoạch điện:</b> {record.qhdien}</p>
                             <p><b>Nội dung phát hiện:</b> {record.content}</p>
+                            <p><b>Có tranh chấp không:</b> {record.tranhchap}</p>
+                            <p><b>Đã lập biên bản số:</b> {record.bienbanso}</p>
+                            <p><b>Hướng xử lý:</b> {record.huongxuly}</p>
+                            <p><b>Kết quả xử lý:</b> {record.ketquaxuly}</p>
+                            <p><b>Cơ quan kiểm tra:</b> {record.coquankiemtra}</p>
                         </>,
                 }}
                 dataSource={projects}
