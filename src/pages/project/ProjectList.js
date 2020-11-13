@@ -19,7 +19,7 @@ const ProjectList = () => {
         return function cleanup() {
             dispatch(resetProject());
         }
-    }, []);
+    }, [role]);
 
     const auth = useSelector(state => state.firebase.auth);
     if (!auth.uid) return <Redirect to='/signin' />

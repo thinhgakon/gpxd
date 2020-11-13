@@ -47,7 +47,7 @@ const projectReducer = (state = initState, action) => {
             return { ...state, loading: true };
 
         case 'GET_A_PROJECT_SUCCESS':
-            console.log('load project success');
+            console.log('load a project success');
             return { ...state, current: action.payload, loading: false };
 
         case 'GET_A_PROJECT_ERROR':

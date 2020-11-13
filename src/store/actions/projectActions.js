@@ -44,25 +44,26 @@ export const loadProject = (role) => {
         // make async call to database
         const creatorId = getState().firebase.auth.uid;
         var projectsRef = getFirebase().firestore().collection("projects");
-        if (role == "Staff") {
-            projectsRef = projectsRef.where("creatorId", "==", creatorId);
-        }
-        else {
-            projectsRef = projectsRef.where("status", "!=", "Bản nháp");
-        }
-        projectsRef.get()
-            .then(function (querySnapshot) {
-                var projects = [];
-                querySnapshot.forEach(function (doc) {
-                    // doc.data() is never undefined for query doc snapshots
-                    projects.push({ ...doc.data(), key: doc.id });
+        if (creatorId) {
+            if (role == "Staff") {
+                projectsRef = projectsRef.where("creatorId", "==", creatorId);
+            }
+            else {
+                projectsRef = projectsRef.where("status", "!=", "Bản nháp");
+            }
+            projectsRef.get()
+                .then(function (querySnapshot) {
+                    var projects = [];
+                    querySnapshot.forEach(function (doc) {
+                        // doc.data() is never undefined for query doc snapshots
+                        projects.push({ ...doc.data(), key: doc.id });
+                    });
+                    dispatch({ type: 'LOAD_PROJECT_SUCCESS', payload: projects });
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error);
                 });
-                dispatch({ type: 'LOAD_PROJECT_SUCCESS', payload: projects });
-                // console.log("projects:", projects);
-            })
-            .catch(function (error) {
-                console.log("Error getting documents: ", error);
-            });
+        }
     }
 };
 
@@ -80,7 +81,6 @@ export const getAProject = (projectId) => {
                 dispatch({ type: 'GET_A_PROJECT_ERROR' });
                 console.log('does not exist')
             }
-
         })
     }
 };
